@@ -3,6 +3,10 @@
 
 import os
 import argparse
+import platform
+import shutil
+import subprocess
+
 
 toplevel = argparse.ArgumentParser()
 toplevel.add_argument('--all', action='store_true', help='install all')
@@ -20,4 +24,24 @@ cmd_emacs = subcommands.add_parser('emacs', help='install emacs settings')
 
 
 args = toplevel.parse_args()
-print(args)
+
+os_type = platform.system()
+uid = os.geteuid()  # 0 if root
+
+
+class Installer:
+    def __init__(self, manager, packages, sudo=False, yes=False):
+        if not shutil.which(manager):
+            raise FileNotFoundError('No such executable: {}'.format(manager))
+
+        self.sudo = sudo
+        self.yes = yes
+        self.manager = manager
+        self.packages = packages
+
+    def install(self):
+        cmd = ['sudo'] if self.sudo else []
+        cmd += [self.manager, 'install']
+        cmd += ['--yes'] if self.yes else []
+        cmd += self.packages
+        subprocess.run(cmd)
