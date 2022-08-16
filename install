@@ -108,3 +108,19 @@ class Installer:
         cmd += ['--yes'] if self.yes else []
         cmd += self.packages
         subprocess.run(cmd)
+
+
+apt_packages = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-server',
+                'graphviz', 'rsync', 'build-essential', 'tar', 'bzip2', 'gzip', 'zip',
+                'autoconf', 'make', 'etckeeper', 'moreutils', 'libmysqlclient-dev']
+brew_packages = ['m4', 'tmux', 'bzip2', 'gzip', 'the_silver_searcher', 'htop', 'tree',
+                 'emacs-plus@28', '--with-native-comp']
+opam_packages = ['merlin', 'tuareg', 'ocamlformat', 'ocp-indent', 'dune', 'base', 'core', 'utop']
+cargo_packages = ['dutree', 'loc', 'bat', 'exa', 'eva', 'hyperfine']
+
+# should call os.expanduser() to value
+link_info = {
+    'nvim': '~/.config/nvim',
+    'tmux/conf': '~/.tmux.conf',
+    'git/config': '~/.gitconfig',
+}
