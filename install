@@ -9,7 +9,6 @@ import subprocess
 
 
 toplevel = argparse.ArgumentParser()
-toplevel.add_argument('--all', action='store_true', help='install all')
 toplevel.add_argument('--force', action='store_true', help='force install')
 
 subcommands = toplevel.add_subparsers(dest='invoked_command')
