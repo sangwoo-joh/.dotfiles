@@ -100,7 +100,7 @@ class Installer:
         self.cmd += packages
 
     def install(self):
-        subprocess.run(self.cmd)
+        subprocess.call(self.cmd, check=True, env=env)
 
 
 apt_packages = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-server',
