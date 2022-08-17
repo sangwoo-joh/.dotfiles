@@ -162,3 +162,35 @@ def run(cmd, shell=False):
     if code != 0:
         box('Aborted: {} failed'.format(cmd if shell else ''.join(cmd)), ok=False)
         sys.exit(code)
+
+
+################################################################################
+# Steps
+################################################################################
+
+
+def configure():
+    os.makedirs(os.path.expanduser('~/.config'), exist_ok=True)
+    if os_type == 'Darwin':
+        print(apple_ascii)
+        print(' Setup for macOS ...')
+        if shutil.which('brew'):
+            return
+
+        # get brew first
+        run("curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | sh", shell=True)
+        env['PATH'] = append_path(env.get('PATH'), '/opt/homebrew/bin')
+        run("brew update", shell=True)
+    elif os_type == 'Linux':
+        print(tux_ascii)
+        print(' Setup for Linux ...')
+    else:
+        raise NotImplementedError("os type {} is not supported!".format(os_type))
+
+
+################################################################################
+# Actual process
+################################################################################
+
+# process by each subcommand
+configure()
