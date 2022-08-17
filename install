@@ -101,7 +101,7 @@ class Installer:
         self.cmd += packages
 
     def install(self):
-        subprocess.call(self.cmd, check=True, env=env)
+        subprocess.call(self.cmd, env=env)
 
 
 apt_packages = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-server',
@@ -158,7 +158,7 @@ def run(cmd, shell=False):
     else:
         assert isinstance(cmd, list)
 
-    code = subprocess.call(cmd, shell=shell, check=True, env=env)
+    code = subprocess.call(cmd, shell=shell, env=env)
     if code != 0:
         box('Aborted: {} failed'.format(cmd if shell else ''.join(cmd)), ok=False)
         sys.exit(code)
