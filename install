@@ -175,6 +175,7 @@ def configure():
         print(apple_ascii)
         print(' Setup for macOS ...')
         if shutil.which('brew'):
+            print(' Found brew in path ...')
             return
 
         # get brew first
