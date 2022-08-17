@@ -113,15 +113,6 @@ brew_packages = ['m4', 'tmux', 'bzip2', 'gzip', 'the_silver_searcher', 'htop', '
 opam_packages = ['merlin', 'tuareg', 'ocamlformat', 'ocp-indent', 'dune', 'base', 'core', 'utop']
 cargo_packages = ['dutree', 'loc', 'bat', 'exa', 'eva', 'hyperfine']
 
-# should call os.expanduser() to value
-link_info = {
-    'nvim': '~/.config/nvim',
-    'tmux/conf': '~/.tmux.conf',
-    'git/config': '~/.gitconfig',
-    'zsh': '~/.zsh',
-    'zsh/rc.zsh': '~/.zshrc',
-}
-
 
 ################################################################################
 # Auxiliary functions
@@ -190,6 +181,20 @@ def base():
         print(' Setup for Linux ...')
     else:
         raise NotImplementedError("os type {} is not supported!".format(os_type))
+
+
+def install_config():
+    """
+    Link .*rc files.
+    should call os.expanduser() to value
+    """
+    link_info = {
+        'nvim': '~/.config/nvim',
+        'tmux/conf': '~/.tmux.conf',
+        'git/config': '~/.gitconfig',
+        'zsh': '~/.zsh',
+        'zsh/rc.zsh': '~/.zshrc',
+    }
 
 
 ################################################################################
