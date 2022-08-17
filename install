@@ -169,7 +169,10 @@ def run(cmd, shell=False):
 ################################################################################
 
 
-def configure():
+def base():
+    """
+    Base configuration. This just install brew for macOS
+    """
     os.makedirs(os.path.expanduser('~/.config'), exist_ok=True)
     if os_type == 'Darwin':
         print(apple_ascii)
@@ -193,5 +196,5 @@ def configure():
 # Actual process
 ################################################################################
 
-# process by each subcommand
-configure()
+
+base()
