@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+import sys
 import os
 import argparse
 import platform
@@ -120,3 +121,44 @@ link_info = {
     'zsh': '~/.zsh',
     'zsh/rc.zsh': '~/.zshrc',
 }
+
+
+################################################################################
+# Auxiliary functions
+################################################################################
+
+
+class TermColor:
+    OKGREEN = '\033[92m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+
+
+def box(message, ok=True, no_color=False):
+    padded_lines = [" " + line + " " for line in message.splitlines()]
+    bar_len = max(len(line) for line in padded_lines)
+    lines = [(TermColor.OKGREEN if ok else TermColor.FAIL)]
+    lines += ['┌' + ('─' * bar_len) + '┐']
+    lines += [('│' + line.ljust(bar_len) + '│') for line in padded_lines]
+    lines += ['└' + ('─' * bar_len) + '┘']
+    lines += [TermColor.ENDC]
+    lines = lines if not no_color else lines[1:-1]
+    print('\n'.join(lines))
+
+
+def append_path(path, acc):
+    if path:
+        return path + os.path.sep + acc
+    return acc
+
+
+def run(cmd, shell=False):
+    if shell:
+        assert isinstance(cmd, str)
+    else:
+        assert isinstance(cmd, list)
+
+    code = subprocess.call(cmd, shell=shell, check=True, env=env)
+    if code != 0:
+        box('Aborted: {} failed'.format(cmd if shell else ''.join(cmd)), ok=False)
+        sys.exit(code)
