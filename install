@@ -264,16 +264,18 @@ def check_step(step):
 
 
 def install(step):
-    if check_step(step):
-        try:
-            echo('Install {} ...'.format(step))
-            eval('install_{}'.format(step))()
-        except Exception as e:
-            import traceback
-            _, msg, tb = sys.exc_info()
-            locate = traceback.extract_tb(tb)[-1]
-            desc = "at {}: {} ({})".format(locate.lineno, locate.line, msg)
-            errors.append(desc)
+    if not check_step(step):
+        return
+
+    try:
+        echo('Install {} ...'.format(step))
+        eval('install_{}'.format(step))()
+    except Exception as e:
+        import traceback
+        _, msg, tb = sys.exc_info()
+        locate = traceback.extract_tb(tb)[-1]
+        desc = "at {}: {} ({})".format(locate.lineno, locate.line, msg)
+        errors.append(desc)
 
 
 ################################################################################
