@@ -48,6 +48,20 @@ def run(cmd, shell=False, check=False):
     return code
 
 
+DARWIN = 1
+DEBIAN = 2
+
+def os_type():
+    os = platform.system()
+    if os == 'Darwin':
+        return DARWIN
+    elif os == 'Linux' and 'debian' in platform.platform():
+        return DEBIAN
+    else:
+        echo('⚠️  OS {} is not supported!'.format(os), ok=False)
+        sys.exit(2)
+
+
 ################################################################################
 # Data
 ################################################################################
@@ -124,7 +138,6 @@ cmd_font = subcommands.add_parser('font', help='install fonts')
 cmd_emacs = subcommands.add_parser('emacs', help='install emacs settings')
 
 args = toplevel.parse_args()
-os_type = platform.system()
 uid = os.geteuid()  # 0 if root
 sudo = uid != 0
 here = os.path.abspath(os.path.dirname(__file__))
@@ -167,7 +180,7 @@ def base():
     Base configuration. This just install brew for macOS
     """
     os.makedirs(os.path.expanduser('~/.config'), exist_ok=True)
-    if os_type == 'Darwin':
+    if os_type() == DARWIN:
         echo('Setup for macOS ...')
         echo(apple_ascii, no_color=True)
         echo('')
@@ -180,13 +193,10 @@ def base():
         env['PATH'] = append_path(env.get('PATH'), '/opt/homebrew/bin')
         run('brew update', shell=True)
         run('brew install gpatch git', shell=True)
-    elif os_type == 'Linux' and 'debian' in platform.platform():
+    elif os_type() == DEBIAN:
         echo('Setup for Linux ...')
         echo(tux_ascii, no_color=True)
         echo('')
-    else:
-        echo('⚠️  OS {} is not supported!'.format(os_type), ok=False)
-        sys.exit(2)
 
 
 def install_config():
@@ -219,15 +229,12 @@ def install_package():
     """
     Install proper packages
     """
-    if os_type == 'Darwin':
+    if os_type() == DARWIN:
         installer = Installer('brew', brew_packages)
         run('brew update', shell=True)
-    elif os_type == 'Linux' and 'debian' in platform.platform():
+    elif os_type() == DEBIAN:
         installer = Installer('apt', apt_packages, sudo=sudo, yes=True)
         run('{}apt update --yes'.format('sudo ' if sudo else ''), shell=True)
-    else:
-        echo('⚠️  OS {} is not supported!'.format(os_type), ok=False)
-        sys.exit(2)
 
     installer.install()
 
