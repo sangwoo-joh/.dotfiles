@@ -19,16 +19,21 @@ class TermColor:
     ENDC = '\033[0m'
 
 
-def box(message, ok=True, no_color=False):
-    padded_lines = [' ' + line + ' ' for line in message.splitlines()]
-    bar_len = max(len(line) for line in padded_lines)
-    lines = [(TermColor.OKGREEN if ok else TermColor.FAIL)]
-    lines += ['┌' + ('─' * bar_len) + '┐']
-    lines += [('│' + line.ljust(bar_len) + '│') for line in padded_lines]
-    lines += ['└' + ('─' * bar_len) + '┘']
-    lines += [TermColor.ENDC]
+def echo(message, ok=True, no_color=False, box=False):
+    padded_lines = [(' ' + line + ' ') for line in message.splitlines()]
+    if box:
+        bar_len = max(len(line) for line in padded_lines)
+        lines = [(TermColor.OKGREEN if ok else TermColor.FAIL)]
+        lines += ['┌' + ('─' * bar_len) + '┐\n']
+        lines += [('│' + line.ljust(bar_len) + '│\n') for line in padded_lines]
+        lines += ['└' + ('─' * bar_len) + '┘\n']
+        lines += [TermColor.ENDC]
+    else:
+        lines = [(TermColor.OKGREEN if ok else TermColor.FAIL)]
+        lines += ['\n'.join(padded_lines)]
+        lines += [TermColor.ENDC]
     lines = lines if not no_color else lines[1:-1]
-    print('\n'.join(lines))
+    print(''.join(lines))
 
 
 def append_path(path, acc):
@@ -45,7 +50,7 @@ def run(cmd, shell=False):
 
     code = subprocess.call(cmd, shell=shell, env=env)
     if code != 0:
-        box('Aborted: {} failed'.format(cmd if shell else ''.join(cmd)), ok=False)
+        echo('Aborted: {} failed'.format(cmd if shell else ''.join(cmd)), ok=False)
         sys.exit(code)
 
 
@@ -134,7 +139,7 @@ env = dict(os.environ)
 class Installer:
     def __init__(self, manager, packages, sudo=False, yes=False):
         if not shutil.which(manager):
-            box('No such executable: {}'.format(manager), ok=False)
+            echo('No such executable: {}'.format(manager), ok=False)
             sys.exit(2)
 
         self.cmd = ['sudo'] if sudo else []
@@ -167,10 +172,10 @@ def base():
     """
     os.makedirs(os.path.expanduser('~/.config'), exist_ok=True)
     if os_type == 'Darwin':
-        print(apple_ascii)
-        print(' Setup for macOS ...')
+        echo(apple_ascii)
+        echo('Setup for macOS ...')
         if shutil.which('brew'):
-            print(' Found brew in path ...')
+            echo('Found brew in path ...')
             return
 
         # get brew first
@@ -179,10 +184,10 @@ def base():
         run('brew update', shell=True)
         run('brew install gpatch git', shell=True)
     elif os_type == 'Linux':
-        print(tux_ascii)
-        print(' Setup for Linux ...')
+        echo(tux_ascii)
+        echo('Setup for Linux ...')
     else:
-        box('os type {} is not supported!'.format(os_type), ok=False)
+        echo('os type {} is not supported!'.format(os_type), ok=False)
         sys.exit(2)
 
 
@@ -195,10 +200,10 @@ def install_config():
     def link(src, dst):
         dst = os.path.expanduser(dst)
         if os.path.exists(dst):
-            print(' Already exist: {} -> {}'.format(src, dst))
+            echo('Already exist: {} -> {}'.format(src, dst))
             return
         os.symlink(src, dst)
-        print(' Create symbolic link: {} -> {}'.format(src, dst))
+        echo('Create symbolic link: {} -> {}'.format(src, dst))
 
     link_info = {
         'nvim': '~/.config/nvim',
@@ -254,5 +259,5 @@ def check_step(step):
 base()
 
 if check_step('config'):
-    box('Install config ...')
+    echo('Install config ...')
     install_config()
