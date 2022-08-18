@@ -126,6 +126,7 @@ cmd_emacs = subcommands.add_parser('emacs', help='install emacs settings')
 args = toplevel.parse_args()
 os_type = platform.system()
 uid = os.geteuid()  # 0 if root
+sudo = uid != 0
 here = os.path.abspath(os.path.dirname(__file__))
 env = dict(os.environ)
 errors = []
@@ -222,12 +223,8 @@ def install_package():
         installer = Installer('brew', brew_packages)
         run('brew update', shell=True)
     elif os_type == 'Linux' and 'debian' in platform.platform():
-        sudo = uid != 0
         installer = Installer('apt', apt_packages, sudo=sudo, yes=True)
-        if sudo:
-            run('sudo apt update --yes', shell=True)
-        else:
-            run('apt update --yes', shell=True)
+        run('{}apt update --yes'.format('sudo ' if sudo else ''), shell=True)
     else:
         echo('⚠️  OS {} is not supported!'.format(os_type), ok=False)
         sys.exit(2)
@@ -239,6 +236,7 @@ def install_ocaml():
     """
     Install ocaml & packages
     """
+
 
 
 def install_cargo():
