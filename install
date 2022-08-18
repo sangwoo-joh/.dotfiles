@@ -181,7 +181,7 @@ def base():
     """
     os.makedirs(os.path.expanduser('~/.config'), exist_ok=True)
     if os_type() == DARWIN:
-        echo('Setup for macOS ...')
+        echo('🍎  Setup for macOS ...')
         echo(apple_ascii, no_color=True)
         echo('')
         if shutil.which('brew'):
@@ -194,7 +194,7 @@ def base():
         run('brew update', shell=True)
         run('brew install gpatch git', shell=True)
     elif os_type() == DEBIAN:
-        echo('Setup for Linux ...')
+        echo('🐧  Setup for Linux ...')
         echo(tux_ascii, no_color=True)
         echo('')
         run('{}apt update --yes'.format('sudo ' if sudo else ''), shell=True)
@@ -272,7 +272,7 @@ def install(target):
         return
 
     try:
-        echo('Install {} ...'.format(target))
+        echo('🎯  Install {} ...'.format(target))
         eval('install_{}'.format(target))()
     except Exception as e:
         import traceback
