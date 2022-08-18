@@ -247,6 +247,10 @@ def install_config():
     for src, dst in link_info.items():
         link(src, dst)
 
+    if os_type() == DEBIAN:
+        run("gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 30", shell=True)
+        run("gsettings set org.gnome.desktop.peripherals.keyboard delay 210", shell=True)
+
 
 def install_package():
     """
