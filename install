@@ -170,8 +170,9 @@ def base():
     """
     os.makedirs(os.path.expanduser('~/.config'), exist_ok=True)
     if os_type == 'Darwin':
-        echo(apple_ascii)
         echo('Setup for macOS ...')
+        echo(apple_ascii, no_color=True)
+        echo('')
         if shutil.which('brew'):
             echo('Found brew in path ...')
             return
@@ -182,8 +183,9 @@ def base():
         run('brew update', shell=True)
         run('brew install gpatch git', shell=True)
     elif os_type == 'Linux':
-        echo(tux_ascii)
         echo('Setup for Linux ...')
+        echo(tux_ascii, no_color=True)
+        echo('')
     else:
         echo('os type {} is not supported!'.format(os_type), ok=False)
         sys.exit(2)
