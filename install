@@ -7,6 +7,7 @@ import argparse
 import platform
 import shutil
 import subprocess
+import functools
 
 ################################################################################
 # Auxiliary functions
@@ -56,6 +57,7 @@ DARWIN = 1
 DEBIAN = 2
 
 
+@functools.lru_cache(maxsize=None)
 def os_type():
     os = platform.system()
     if os == 'Darwin':
