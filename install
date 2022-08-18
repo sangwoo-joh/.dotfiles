@@ -51,6 +51,7 @@ def run(cmd, shell=False, check=False):
 DARWIN = 1
 DEBIAN = 2
 
+
 def os_type():
     os = platform.system()
     if os == 'Darwin':
