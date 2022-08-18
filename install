@@ -8,6 +8,10 @@ import platform
 import shutil
 import subprocess
 import functools
+import requests
+import tempfile
+import stat
+
 
 ################################################################################
 # Auxiliary functions
@@ -51,6 +55,17 @@ def run(cmd, shell=False, check=False):
         echo('⚠️  Aborted: {} failed'.format(' '.join(cmd) if isinstance(cmd, list) else cmd), ok=False)
         sys.exit(code)
     return code
+
+
+def curl_install(link):
+    res = requests.get(link)
+    tmp = tempfile.NamedTemporaryFile(delete=True)
+    with open(tmp.name, 'w') as fp:
+        fp.write(res.content.decode('utf-8'))
+        fp.flush()
+    tmp.file.close()
+    os.chmod(tmp.name, os.stat(tmp.name).st_mode | stat.S_IEXEC)
+    run('sh -c {}'.format(tmp.name), shell=True)
 
 
 DARWIN = 1
@@ -254,7 +269,7 @@ def install_ocaml():
         echo('Opam already installed')
     else:
         echo('🎯  Install Opam ...')
-        run("curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh | sh", shell=True)
+        curl_install("https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh")
         run("opam init", shell=True)
         run("eval $(opam env)", shell=True)
         run("opam update", shell=True)
