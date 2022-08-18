@@ -12,26 +12,24 @@ import subprocess
 # Auxiliary functions
 ################################################################################
 
-
-class TermColor:
-    OKGREEN = '\033[92m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
+OKGREEN = '\033[92m'
+FAIL = '\033[91m'
+ENDC = '\033[0m'
 
 
 def echo(message, ok=True, no_color=False, box=False):
     padded_lines = [(' ' + line + ' ') for line in message.splitlines()]
     if box:
         bar_len = max(len(line) for line in padded_lines)
-        lines = [(TermColor.OKGREEN if ok else TermColor.FAIL)]
+        lines = [(OKGREEN if ok else FAIL)]
         lines += ['┌' + ('─' * bar_len) + '┐\n']
         lines += [('│' + line.ljust(bar_len) + '│\n') for line in padded_lines]
         lines += ['└' + ('─' * bar_len) + '┘\n']
-        lines += [TermColor.ENDC]
+        lines += [ENDC]
     else:
-        lines = [(TermColor.OKGREEN if ok else TermColor.FAIL)]
+        lines = [(OKGREEN if ok else FAIL)]
         lines += ['\n'.join(padded_lines)]
-        lines += [TermColor.ENDC]
+        lines += [ENDC]
     lines = lines if not no_color else lines[1:-1]
     print(''.join(lines))
 
