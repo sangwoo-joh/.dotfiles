@@ -188,8 +188,15 @@ def base():
 def install_config():
     """
     Link .*rc files.
-    should call os.expanduser() to value
     """
+    def link(src, dst):
+        dst = os.path.expanduser(dst)
+        if os.path.exists(dst):
+            print(' Already exist: {} -> {}'.format(src, dst))
+            return
+        os.symlink(src, dst)
+        print(' Create symbolic link: {} -> {}'.format(src, dst))
+
     link_info = {
         'nvim': '~/.config/nvim',
         'tmux/conf': '~/.tmux.conf',
@@ -197,6 +204,8 @@ def install_config():
         'zsh': '~/.zsh',
         'zsh/rc.zsh': '~/.zshrc',
     }
+    for src, dst in link_info.items():
+        link(src, dst)
 
 
 ################################################################################
@@ -204,4 +213,12 @@ def install_config():
 ################################################################################
 
 
+def check_step(step):
+    return args.invoked_command in {None, 'all', step}
+
+
 base()
+
+if check_step('config'):
+    box('Install config ...')
+    install_config()
