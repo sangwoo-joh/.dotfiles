@@ -84,6 +84,28 @@ def os_type():
         sys.exit(2)
 
 
+def ask_yes_or_no(query, default=False):
+    answer = {'yes': True, 'y': True, 'no': False, 'n': False}
+    if default is None:
+        prompt = " [y/n]"
+    elif default:
+        prompt = " [Y/n]"
+    elif not default:
+        prompt = " [y/N]"
+
+    query += prompt
+
+    while True:
+        sys.stdout.write(query)
+        choice = input().lower()
+        if default is not None and not choice:
+            return default
+        elif choice in answer:
+            return answer[choice]
+        else:
+            sys.stdout.write("Please answer with 'yes' or 'no' (or 'y' or 'n' for short).\n")
+
+
 ################################################################################
 # Data
 ################################################################################
@@ -311,7 +333,7 @@ def install_emacs():
 
 
 def check_target(target):
-    return args.invoked_command in {None, 'all', target}
+    return args.invoked_command in {'all', target}
 
 
 def install(target):
@@ -332,6 +354,13 @@ def install(target):
 ################################################################################
 # Actual process
 ################################################################################
+
+if args.invoked_command is None:
+    if ask_yes_or_no("Default install option is all. Are you sure to continue?"):
+        args.invoked_command = 'all'
+    else:
+        echo('Aborted by user', ok=False)
+        sys.exit(1)
 
 base()
 install('config')
