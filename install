@@ -210,7 +210,8 @@ apt_packages = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-serv
                 'bubblewrap', 'curl']
 brew_packages = ['m4', 'tmux', 'bzip2', 'gzip', 'the_silver_searcher', 'htop', 'tree',
                  'git', 'gpatch', 'fontconfig']
-opam_packages = ['merlin', 'tuareg', 'ocamlformat', 'ocp-indent', 'dune', 'base', 'core', 'utop']
+opam_packages = ['merlin', 'tuareg', 'ocamlformat', 'ocp-indent', 'dune', 'base', 'core', 'utop',
+                 '--assume-depexts']
 cargo_packages = ['dutree', 'loc', 'bat', 'exa', 'eva', 'hyperfine']
 
 
