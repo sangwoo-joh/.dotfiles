@@ -1,0 +1,78 @@
+set -g prefix C-b
+
+# emacs is the best
+set -gw mode-keys emacs
+
+bind-key Tab last-window
+
+bind-key b list-buffers
+
+bind-key a send-prefix
+bind-key k confirm kill-window
+
+bind-key q confirm-before kill-server
+
+bind-key -n C-, swap-window -t -1
+bind-key -n C-. swap-window -t +1
+
+bind Escape copy-mode
+
+bind c new-window -a -c "#{pane_current_path}"
+
+set -s escape-time 0
+set-option -g display-time 2500
+set -g history-limit 50000
+set -g bell-action any
+setw -g monitor-activity on
+set -g visual-activity on
+setw -g aggressive-resize on
+set -g lock-command 'vlock -c'
+set -g default-terminal "screen-256color"
+
+set -g status-justify left
+set -g status-fg white
+set -g status-left-length 30
+set -g status-left '#[fg=green][ #{host} : #{session_name} ]['
+set -g status-right '#[fg=green]][ #[fg=blue]%Y-%m-%d #[fg=white]%I:%M #[fg=green]]'
+
+set -g status-interval 1
+set-option -g allow-rename on
+set-window-option -g automatic-rename on
+
+set -g status-left "#[fg=green][ #{=21:host} : #{session_name} ][";
+set -g automatic-rename-format "#{s/bash//:pane_current_command};"
+set-window-option -g window-status-current-format "#[fg=red](#[fg=white]#{window_index}#{window_flags}$ #{=-30:?window_name,#{window_name},#{pane_current_path}}#[fg=red])";
+set-window-option -g window-status-format " #[fg=normal]#{window_index}#{window_flags}$ #{=-30:?window_name,#{window_name},#{pane_current_path}} "
+
+#### COLOUR (Solarized dark)
+
+# default statusbar colors
+set-option -g status-bg black #base02
+set-option -g status-fg yellow #yellow
+
+# default window title colors
+# set-window-option -g window-status-fg brightblue #base0
+# set-window-option -g window-status-bg default
+#set-window-option -g window-status-attr dim
+
+# active window title colors
+# set-window-option -g window-status-current-fg brightred #orange
+# set-window-option -g window-status-current-bg default
+#set-window-option -g window-status-current-attr bright
+
+# pane border
+# set-option -g pane-border-fg black #base02
+# set-option -g pane-active-border-fg brightgreen #base01
+
+# message text
+#set-option -g message-bg black #base02
+#set-option -g message-fg brightred #orange
+
+# pane number display
+set-option -g display-panes-active-colour blue #blue
+set-option -g display-panes-colour brightred #orange
+
+# clock
+set-window-option -g clock-mode-colour green #green
+
+bind-key r source-file $HOME/.tmux.conf
