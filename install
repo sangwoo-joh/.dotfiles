@@ -31,7 +31,11 @@ def echo(message, ok=True, no_color=False, box=False):
         lines += ['\n'.join(padded_lines)]
         lines += [ENDC]
     lines = lines if not no_color else lines[1:-1]
-    print(''.join(lines))
+    try:
+        print(''.join(lines))
+    except UnicodeEncodeError:
+        print(FAIL + "Codec error! You MUST set the following environments: LC_ALL=C.UTF-8" + ENDC)
+        sys.exit(2)
 
 
 def append_path(path, acc):
