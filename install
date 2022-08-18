@@ -143,7 +143,7 @@ class Installer:
         self.cmd += packages
 
     def install(self):
-        run(self.cmd, env=env)
+        run(self.cmd)
 
 
 apt_packages = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-server',
