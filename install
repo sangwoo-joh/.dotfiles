@@ -133,7 +133,7 @@ env = dict(os.environ)
 class Installer:
     def __init__(self, manager, packages, sudo=False, yes=False):
         if not shutil.which(manager):
-            echo('⚠️ No such executable: {}'.format(manager), ok=False)
+            echo('⚠️  No such executable: {}'.format(manager), ok=False)
             sys.exit(2)
 
         self.cmd = ['sudo'] if sudo else []
@@ -183,7 +183,7 @@ def base():
         echo(tux_ascii, no_color=True)
         echo('')
     else:
-        echo('⚠️ os type {} is not supported!'.format(os_type), ok=False)
+        echo('⚠️  OS {} is not supported!'.format(os_type), ok=False)
         sys.exit(2)
 
 
