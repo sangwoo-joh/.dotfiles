@@ -62,7 +62,7 @@ def os_type():
     os = platform.system()
     if os == 'Darwin':
         return DARWIN
-    elif os == 'Linux' and 'debian' in platform.platform():
+    elif os == 'Linux' and any(p in platform.platform() for p in {'debian', 'Ubuntu'}):
         return DEBIAN
     else:
         echo('⚠️  OS {} is not supported!'.format(os), ok=False)
