@@ -174,9 +174,9 @@ def base():
             return
 
         # get brew first
-        run("curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | sh", shell=True)
+        run('curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | sh', shell=True)
         env['PATH'] = append_path(env.get('PATH'), '/opt/homebrew/bin')
-        run("brew update", shell=True)
+        run('brew update', shell=True)
     elif os_type == 'Linux':
         print(tux_ascii)
         print(' Setup for Linux ...')
