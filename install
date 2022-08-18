@@ -218,6 +218,21 @@ def install_package():
     """
     Install proper packages
     """
+    if os_type == 'Darwin':
+        installer = Installer('brew', brew_packages)
+        run('brew update', shell=True)
+    elif os_type == 'Linux' and 'debian' in platform.platform():
+        sudo = uid != 0
+        installer = Installer('apt', apt_packages, sudo=sudo, yes=True)
+        if sudo:
+            run('sudo apt update --yes', shell=True)
+        else:
+            run('apt update --yes', shell=True)
+    else:
+        echo('⚠️  OS {} is not supported!'.format(os_type), ok=False)
+        sys.exit(2)
+
+    installer.install()
 
 
 def install_ocaml():
