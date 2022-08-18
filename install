@@ -324,7 +324,12 @@ def install_cargo():
         echo('🎯  Install Cargo ...')
         curl_install('https://sh.rustup.rs')
 
-    Installer('cargo', cargo_packages, yes=True).install()
+    if os_type() == DARWIN:
+        # cannot install some packages due to nightly feature
+        cargo_packages.remove('bb')
+        cargo_packages.remove('bat')
+        cargo_packages.remove('hyperfine')
+    Installer('cargo', cargo_packages).install()
 
 
 def install_font():
