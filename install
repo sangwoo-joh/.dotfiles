@@ -134,7 +134,8 @@ env = dict(os.environ)
 class Installer:
     def __init__(self, manager, packages, sudo=False, yes=False):
         if not shutil.which(manager):
-            raise FileNotFoundError('No such executable: {}'.format(manager))
+            box('No such executable: {}'.format(manager), ok=False)
+            sys.exit(2)
 
         self.cmd = ['sudo'] if sudo else []
         self.cmd += [manager, 'install']
@@ -180,7 +181,8 @@ def base():
         print(tux_ascii)
         print(' Setup for Linux ...')
     else:
-        raise NotImplementedError("os type {} is not supported!".format(os_type))
+        box('os type {} is not supported!'.format(os_type), ok=False)
+        sys.exit(2)
 
 
 def install_config():
