@@ -211,6 +211,37 @@ def install_config():
         link(src, dst)
 
 
+def install_package():
+    """
+    Install proper packages
+    """
+
+
+def install_ocaml():
+    """
+    Install ocaml & packages
+    """
+
+
+def install_cargo():
+    """
+    Install cargo & packages
+    """
+
+
+def install_font():
+    """
+    Install fonts: D2Coding, powerline
+    """
+
+
+def install_emacs():
+    """
+    Install emacs & dotemacs
+    - Linux: build from source --with-native-compilation
+    - Darwin: brew tap d12prosted/emacs-plus && brew install emacs-plus@28 --with-native-comp
+    """
+
 ################################################################################
 # Actual process
 ################################################################################
