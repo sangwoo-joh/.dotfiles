@@ -48,7 +48,7 @@ def run(cmd, shell=False):
 
     code = subprocess.call(cmd, shell=shell, env=env)
     if code != 0:
-        echo('Aborted: {} failed'.format(cmd if shell else ''.join(cmd)), ok=False)
+        echo('⚠️ Aborted: {} failed'.format(cmd if shell else ''.join(cmd)), ok=False)
         sys.exit(code)
 
 
@@ -137,7 +137,7 @@ env = dict(os.environ)
 class Installer:
     def __init__(self, manager, packages, sudo=False, yes=False):
         if not shutil.which(manager):
-            echo('No such executable: {}'.format(manager), ok=False)
+            echo('⚠️ No such executable: {}'.format(manager), ok=False)
             sys.exit(2)
 
         self.cmd = ['sudo'] if sudo else []
@@ -187,7 +187,7 @@ def base():
         echo(tux_ascii, no_color=True)
         echo('')
     else:
-        echo('os type {} is not supported!'.format(os_type), ok=False)
+        echo('⚠️ os type {} is not supported!'.format(os_type), ok=False)
         sys.exit(2)
 
 
@@ -204,7 +204,7 @@ def install_config():
             echo('Already exist: {} -> {}'.format(src, dst))
             return
         os.symlink(src, dst)
-        echo('Create symbolic link: {} -> {}'.format(src, dst))
+        echo('✔ Create symbolic link: {} -> {}'.format(src, dst))
 
     link_info = {
         'nvim': '~/.config/nvim',
