@@ -182,7 +182,7 @@ def base():
         env['PATH'] = append_path(env.get('PATH'), '/opt/homebrew/bin')
         run('brew update', shell=True)
         run('brew install gpatch git', shell=True)
-    elif os_type == 'Linux':
+    elif os_type == 'Linux' and 'debian' in platform.platform():
         echo('Setup for Linux ...')
         echo(tux_ascii, no_color=True)
         echo('')
