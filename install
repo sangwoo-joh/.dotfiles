@@ -331,6 +331,18 @@ def install_emacs():
     - Darwin: brew tap d12prosted/emacs-plus && brew install emacs-plus@28 --with-native-comp
     If opam is installed, try install merlin & tuareg opam packages.
     """
+    if shutil.which('emacs'):
+        echo('Emacs already installed')
+        return
+
+    if os_type() == DARWIN:
+        run("brew tap d12prosted/emacs-plus")
+        run("brew install emacs-plus@28 --with-native-comp")
+    elif os_type() == DEBIAN:
+        # TODO: install packages to build emacs, clone https://github.com/emacs-mirror/emacs, checkout emacs-28.1, ./configure --with-native-compilation, make -j {cpu_count//2}
+        pass
+
+    # TODO: install tuareg, merlin --assume-depexts via opam
 
 
 def check_target(target):
