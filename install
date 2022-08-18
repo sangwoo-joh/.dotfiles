@@ -241,7 +241,21 @@ def install_ocaml():
     """
     Install ocaml & packages
     """
+    if os_type() == DEBIAN:
+        run("{}apt install bubblewrap --yes".format('sudo ' if sudo else ''), shell=True)
 
+    if shutil.which('opam'):
+        echo('Opam already installed')
+    else:
+        echo('🎯  Install Opam ...')
+        run("curl -fsSL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh | sh", shell=True)
+        run("opam init", shell=True)
+        run("eval $(opam env)", shell=True)
+        run("opam update", shell=True)
+        run("opam switch create kernel ocaml-base-compiler.4.13.1")
+        run("eval $(opam env --switch=kernel)")
+
+    Installer('opam', opam_packages, yes=True).install()
 
 
 def install_cargo():
