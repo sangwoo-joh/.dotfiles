@@ -269,7 +269,11 @@ def install(step):
             echo('Install {} ...'.format(step))
             eval('install_{}'.format(step))()
         except Exception as e:
-            errors.append(e)
+            import traceback
+            _, msg, tb = sys.exc_info()
+            locate = traceback.extract_tb(tb)[-1]
+            desc = "at {}: {} ({})".format(locate.lineno, locate.line, msg)
+            errors.append(desc)
 
 
 ################################################################################
@@ -287,6 +291,6 @@ install('emacs')
 if errors:
     echo("⚠  Got % 2d errors during installations!\nPlease check the following messages." % len(errors), ok=False, box=True)
     for err in errors:
-        echo(repr(err), ok=False)
+        echo(err, ok=False)
 else:
     echo("✔ Ready to go!", box=True)
