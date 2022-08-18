@@ -220,7 +220,7 @@ apt_packages = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-serv
 brew_packages = ['m4', 'tmux', 'bzip2', 'gzip', 'the_silver_searcher', 'htop', 'tree',
                  'git', 'gpatch', 'fontconfig']
 opam_packages = ['ocamlformat', 'ocp-indent', 'dune', 'base', 'core', 'utop']
-cargo_packages = ['dutree', 'loc', 'bat', 'exa', 'eva', 'hyperfine']
+cargo_packages = ['dutree', 'loc', 'bb', 'bat', 'exa', 'eva', 'hyperfine']
 
 
 ################################################################################
