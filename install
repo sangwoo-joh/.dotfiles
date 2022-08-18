@@ -263,17 +263,17 @@ def install_emacs():
     """
 
 
-def check_step(step):
-    return args.invoked_command in {None, 'all', step}
+def check_target(target):
+    return args.invoked_command in {None, 'all', target}
 
 
-def install(step):
-    if not check_step(step):
+def install(target):
+    if not check_target(target):
         return
 
     try:
-        echo('Install {} ...'.format(step))
-        eval('install_{}'.format(step))()
+        echo('Install {} ...'.format(target))
+        eval('install_{}'.format(target))()
     except Exception as e:
         import traceback
         _, msg, tb = sys.exc_info()
