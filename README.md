@@ -16,17 +16,17 @@
 
  | OS | Status |
  | --- | :---: |
- | macOS (:apple:) | :white_check_mark: |
- | Debian Linux (:penguin:) | :white_check_mark: |
+ | macOS (:apple:) | :heavy_check_mark: |
+ | Debian Linux (:penguin:) | :heavy_check_mark: |
  | Other *nix Systems | :x: |
 
 ## Supported Targets
 
  | Target | Status | Description |
  | --- | :---: | --- |
- | configurations | :white_check_mark: | :house: Personal configurations incuding zsh, tmux, git, nvim. |
- | emacs | :white_check_mark: (:apple:), :construction: (:penguin:) | :unicorn: You should use Emacs. I'm serious. |
- | ocaml | :white_check_mark: | :camel: |
- | packages | :white_check_mark: | Packages that I'm familiar with. |
- | cargo | :white_check_mark: | :crab: Some alternatives for built-in binaries. |
+ | configurations | :heavy_check_mark: | :house: Personal configurations incuding zsh, tmux, git, nvim. |
+ | emacs | :heavy_check_mark: (:apple:), :construction: (:penguin:) | :unicorn: You should use Emacs. I'm serious. |
+ | ocaml | :heavy_check_mark: | :camel: |
+ | packages | :heavy_check_mark: | Packages that I'm familiar with. |
+ | cargo | :heavy_check_mark: | :crab: Some alternatives for built-in binaries. |
  | font | :construction: | :black_nib: [D2coding](https://github.com/naver/d2codingfont) and [powerline](https://github.com/powerline/fonts). |
