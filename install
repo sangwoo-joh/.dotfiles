@@ -198,6 +198,7 @@ def install_config():
     setup fzf,
     """
     def link(src, dst):
+        src = os.path.join(here, src)
         dst = os.path.expanduser(dst)
         if os.path.exists(dst):
             echo('Already exist: {} -> {}'.format(src, dst))
