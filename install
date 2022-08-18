@@ -151,7 +151,7 @@ apt_packages = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-serv
                 'autoconf', 'make', 'etckeeper', 'moreutils', 'libmysqlclient-dev',
                 'bubblewrap', 'curl']
 brew_packages = ['m4', 'tmux', 'bzip2', 'gzip', 'the_silver_searcher', 'htop', 'tree',
-                 'git', 'gpatch', 'emacs-plus@28', '--with-native-comp']
+                 'git', 'gpatch']
 opam_packages = ['merlin', 'tuareg', 'ocamlformat', 'ocp-indent', 'dune', 'base', 'core', 'utop']
 cargo_packages = ['dutree', 'loc', 'bat', 'exa', 'eva', 'hyperfine']
 
