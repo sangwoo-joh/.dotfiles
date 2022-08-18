@@ -26,7 +26,7 @@
  | --- | :---: | --- |
  | configurations | :heavy_check_mark: | :house: Personal configurations incuding zsh, tmux, git, nvim. |
  | emacs | :heavy_check_mark: (:apple:), :construction: (:penguin:) | :unicorn: You should use Emacs. I'm serious. |
- | ocaml | :heavy_check_mark: | :camel: |
- | packages | :heavy_check_mark: | Packages that I'm familiar with. |
+ | ocaml | :heavy_check_mark: | :camel: My favourite programming language. |
+ | packages | :heavy_check_mark: | :floppy_disk: Packages that I'm familiar with. |
  | cargo | :heavy_check_mark: | :crab: Some alternatives for built-in binaries. |
  | font | :construction: | :black_nib: [D2coding](https://github.com/naver/d2codingfont) and [powerline](https://github.com/powerline/fonts). |
