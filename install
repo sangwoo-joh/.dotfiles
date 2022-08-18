@@ -8,9 +8,9 @@ import platform
 import shutil
 import subprocess
 import functools
-import requests
 import tempfile
 import stat
+import http.client
 
 
 ################################################################################
@@ -58,12 +58,20 @@ def run(cmd, shell=True, check=False):
 
 
 def curl_install(link):
-    res = requests.get(link)
+    url = link.split('://')[1]
+    url, uri = url.split('/', 1)
+    conn = http.client.HTTPSConnection(url)
+    conn.request('GET', '/' + uri)
+    res = conn.getresponse()
+    if res.status != 200:
+        raise ConnectionError("HTTP Connection Error: {}, {}".format(res.status, res.reason))
+    content = res.read().decode('utf-8')
     tmp = tempfile.NamedTemporaryFile(delete=True)
     with open(tmp.name, 'w') as fp:
-        fp.write(res.content.decode('utf-8'))
+        fp.write(content)
         fp.flush()
     tmp.file.close()
+    conn.close()
     os.chmod(tmp.name, os.stat(tmp.name).st_mode | stat.S_IEXEC)
     run('sh -c {}'.format(tmp.name))
 
