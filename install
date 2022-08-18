@@ -188,7 +188,9 @@ def base():
 
 def install_config():
     """
-    Link .*rc files.
+    Link .*rc files,
+    global keyboard speed setting in case of Linux,
+    setup fzf,
     """
     def link(src, dst):
         dst = os.path.expanduser(dst)
