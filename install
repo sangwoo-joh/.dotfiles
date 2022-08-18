@@ -246,17 +246,25 @@ def install_emacs():
     - Darwin: brew tap d12prosted/emacs-plus && brew install emacs-plus@28 --with-native-comp
     """
 
-################################################################################
-# Actual process
-################################################################################
-
 
 def check_step(step):
     return args.invoked_command in {None, 'all', step}
 
 
-base()
+def install(step):
+    if check_step(step):
+        echo('Install {} ...'.format(step))
+        eval('install_{}'.format(step))()
 
-if check_step('config'):
-    echo('Install config ...')
-    install_config()
+
+################################################################################
+# Actual process
+################################################################################
+
+base()
+install('config')
+install('package')
+install('ocaml')
+install('cargo')
+install('font')
+install('emacs')
