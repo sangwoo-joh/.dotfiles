@@ -24,7 +24,7 @@ def echo(message, ok=True, no_color=False, box=False):
         lines = [(OKGREEN if ok else FAIL)]
         lines += ['┌' + ('─' * bar_len) + '┐\n']
         lines += [('│' + line.ljust(bar_len) + '│\n') for line in padded_lines]
-        lines += ['└' + ('─' * bar_len) + '┘\n']
+        lines += ['└' + ('─' * bar_len) + '┘']
         lines += [ENDC]
     else:
         lines = [(OKGREEN if ok else FAIL)]
