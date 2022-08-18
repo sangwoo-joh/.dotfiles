@@ -128,6 +128,7 @@ os_type = platform.system()
 uid = os.geteuid()  # 0 if root
 here = os.path.abspath(os.path.dirname(__file__))
 env = dict(os.environ)
+errors = []
 
 
 class Installer:
@@ -251,8 +252,11 @@ def check_step(step):
 
 def install(step):
     if check_step(step):
-        echo('Install {} ...'.format(step))
-        eval('install_{}'.format(step))()
+        try:
+            echo('Install {} ...'.format(step))
+            eval('install_{}'.format(step))()
+        except Exception as e:
+            errors.append(e)
 
 
 ################################################################################
@@ -266,3 +270,10 @@ install('ocaml')
 install('cargo')
 install('font')
 install('emacs')
+
+if errors:
+    echo("⚠  Got % 2d errors during installations!\nPlease check the following messages." % len(errors), ok=False, box=True)
+    for err in errors:
+        echo(repr(err), ok=False)
+else:
+    echo("✔ Ready to go!", box=True)
