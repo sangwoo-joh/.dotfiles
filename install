@@ -175,11 +175,12 @@ subcommands = toplevel.add_subparsers(dest='invoked_command')
 
 cmd_all = subcommands.add_parser('all', help='install all (default)')
 cmd_config = subcommands.add_parser('config', help='install config (as symlink)')
-cmd_package = subcommands.add_parser('package', help='install packages')
+cmd_emacs = subcommands.add_parser('emacs', help='install emacs settings')
 cmd_ocaml = subcommands.add_parser('ocaml', help='install OCaml')
+cmd_package = subcommands.add_parser('package', help='install packages')
 cmd_cargo = subcommands.add_parser('cargo', help='install cargo packages')
 cmd_font = subcommands.add_parser('font', help='install fonts')
-cmd_emacs = subcommands.add_parser('emacs', help='install emacs settings')
+
 
 args = toplevel.parse_args()
 uid = os.geteuid()  # 0 if root
