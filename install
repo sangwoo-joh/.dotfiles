@@ -41,14 +41,9 @@ def append_path(path, acc):
 
 
 def run(cmd, shell=False, check=False):
-    if shell:
-        assert isinstance(cmd, str)
-    else:
-        assert isinstance(cmd, list)
-
     code = subprocess.call(cmd, shell=shell, env=env)
     if not check and code != 0:
-        echo('⚠️  Aborted: {} failed'.format(cmd if shell else ''.join(cmd)), ok=False)
+        echo('⚠️  Aborted: {} failed'.format(' '.join(cmd) if isinstance(cmd, list) else cmd), ok=False)
         sys.exit(code)
     return code
 
