@@ -262,6 +262,13 @@ def install_cargo():
     """
     Install cargo & packages
     """
+    if shutil.which('cargo'):
+        echo("Cargo already installed")
+    else:
+        echo('🎯  Install Cargo ...')
+        run("curl https://sh.rustup.rs -sSf | sh", shell=True)
+
+    Installer('cargo', cargo_packages, yes=True).install()
 
 
 def install_font():
