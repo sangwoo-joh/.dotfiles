@@ -197,6 +197,7 @@ def base():
         echo('Setup for Linux ...')
         echo(tux_ascii, no_color=True)
         echo('')
+        run('{}apt update --yes'.format('sudo ' if sudo else ''), shell=True)
 
 
 def install_config():
@@ -230,13 +231,9 @@ def install_package():
     Install proper packages
     """
     if os_type() == DARWIN:
-        installer = Installer('brew', brew_packages)
-        run('brew update', shell=True)
+        Installer('brew', brew_packages).install()
     elif os_type() == DEBIAN:
-        installer = Installer('apt', apt_packages, sudo=sudo, yes=True)
-        run('{}apt update --yes'.format('sudo ' if sudo else ''), shell=True)
-
-    installer.install()
+        Installer('apt', apt_packages, sudo=sudo, yes=True).install()
 
 
 def install_ocaml():
