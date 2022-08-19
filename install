@@ -45,7 +45,7 @@ def echo(message, ok=True, no_color=False, box=False):
 
 def append_path(path, acc):
     if path:
-        return path + os.path.sep + acc
+        return path + os.pathsep + acc
     return acc
 
 
