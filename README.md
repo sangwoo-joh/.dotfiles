@@ -17,7 +17,7 @@
  | OS | Status | Description
  | --- | :---: | --- |
  | macOS (:apple:) | :heavy_check_mark: | macOS 11+
- | Debian Linux (:penguin:) | :heavy_check_mark: | Ubuntu 20.04+ |
+ | Debian Linux (:penguin:) | :heavy_check_mark: | Any systems based on Ubuntu 20.04+ |
  | Other *nix Systems | :x: | Not sure I'm going to use them |
 
 ## Supported Targets
