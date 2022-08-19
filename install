@@ -192,14 +192,14 @@ cmd_font = subcommands.add_parser('font', help='install fonts')
 
 args = toplevel.parse_args()
 uid = os.geteuid()  # 0 if root
-sudo = uid != 0
+sudo = (os_type() != DARWIN) and (uid != 0)
 here = os.path.abspath(os.path.dirname(__file__))
 env = dict(os.environ)
 errors = []
 
 
 class Installer:
-    def __init__(self, manager, packages, sudo=False, yes=False):
+    def __init__(self, manager, packages, yes=False):
         if not shutil.which(manager):
             echo('⚠️  No such executable: {}'.format(manager), ok=False)
             sys.exit(2)
@@ -290,7 +290,7 @@ def install_package():
     if os_type() == DARWIN:
         Installer('brew', brew_packages).install()
     elif os_type() == DEBIAN:
-        Installer('apt', apt_packages, sudo=sudo, yes=True).install()
+        Installer('apt', apt_packages, yes=True).install()
 
 
 def install_ocaml():
