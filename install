@@ -421,7 +421,8 @@ def install_emacs():
 
         pass
 
-    # TODO: install tuareg, merlin --assume-depexts via opam
+    if available('opam'):
+        Installer('opam', ['tuareg', 'merlin', '--assume-depexts'], yes=True).install()
 
 
 def check_target(target):
