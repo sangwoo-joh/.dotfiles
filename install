@@ -187,7 +187,7 @@ cmd_emacs = subcommands.add_parser('emacs', help='install emacs settings')
 cmd_ocaml = subcommands.add_parser('ocaml', help='install OCaml')
 cmd_package = subcommands.add_parser('package', help='install packages')
 cmd_cargo = subcommands.add_parser('cargo', help='install cargo packages')
-cmd_font = subcommands.add_parser('font', help='install fonts')
+cmd_fonts = subcommands.add_parser('fonts', help='install fonts')
 
 
 args = toplevel.parse_args()
@@ -332,7 +332,7 @@ def install_cargo():
     Installer('cargo', cargo_packages).install()
 
 
-def install_font():
+def install_fonts():
     """
     Install fonts: D2Coding, powerline
     """
@@ -394,7 +394,7 @@ install('config')
 install('package')
 install('ocaml')
 install('cargo')
-install('font')
+install('fonts')
 install('emacs')
 
 if errors:
