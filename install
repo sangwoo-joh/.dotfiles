@@ -11,6 +11,7 @@ import functools
 import tempfile
 import stat
 import http.client
+import multiprocessing
 
 from os.path import abspath, dirname, expanduser, join, exists
 
@@ -401,6 +402,22 @@ def install_fonts():
         download()
 
     run("fc-cache -f -v")
+
+
+def _build_emacs():
+    """
+    NOTE: This function MUST be called by install_emacs with DEBIAN, with all the dependencies already installed.
+    """
+    pushd = os.getcwd()
+    with tempfile.TemporaryDirectory() as tmpdir:
+        run("git clone https://github.com/emacs-mirror/emacs {}".format(tmpdir))
+        os.chdir(tmpdir)
+        run("git checkout emacs-28.1")
+        run("./configure --with-native-compilation")
+        jobs = multiprocessing.cpu_count()
+        run("make -j {}".format(jobs))
+
+    os.chdir(pushd)
 
 
 def install_emacs():
