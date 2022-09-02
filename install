@@ -414,6 +414,7 @@ def _build_emacs():
         run("git clone https://github.com/emacs-mirror/emacs {}".format(tmpdir))
         os.chdir(tmpdir)
         run("git checkout emacs-28.1")
+        run("./autogen.sh")
         run("./configure --with-native-compilation")
         jobs = multiprocessing.cpu_count()
         run("make -j {}".format(jobs))
