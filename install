@@ -288,6 +288,11 @@ def install_package():
     """
     Install proper packages
     """
+    # setup tzdata auxiliaries
+    if not os.path.exists("/usr/share/zoneinfo/Asia/Seoul") and not os.path.exists("/etc/localtime"):
+        # from https://stackoverflow.com/a/44333806
+        run("ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime")
+
     if os_type() == DARWIN:
         Installer('brew', brew_packages).install()
     elif os_type() == DEBIAN:
