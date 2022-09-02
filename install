@@ -328,8 +328,8 @@ def install_ocaml():
     """
     Install ocaml & packages
     """
-    if os_type() == DEBIAN:
-        run("{}apt install bubblewrap --yes".format('sudo ' if sudo else ''))
+    if os_type() == DEBIAN and not available('bwrap'):
+        Installer('apt', ['bubblewrap'], yes=True).install()
 
     if available('opam'):
         echo('Opam already installed')
