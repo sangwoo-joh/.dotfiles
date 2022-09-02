@@ -216,11 +216,12 @@ class Installer:
         self.cmd += [manager, 'install']
         self.cmd += ['--yes'] if yes else []
         self.cmd += packages
-        self.message = "[{}] install {} packages ...".format(manager, len(packages))
+        self.message = "⏳  [{}] install {} packages ...".format(manager, len(packages))
 
     def install(self):
         echo(self.message)
         run(self.cmd, shell=False)
+        echo("⌛ Done!")
 
 
 apt_packages = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-server',
@@ -290,7 +291,7 @@ def install_config():
         link(src, dst)
 
     if os_type() == DEBIAN and available('gsettings'):
-        echo("Update peripherals values ...")
+        echo("⏳  Update peripherals values ...")
         run("gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 30", shell=True)
         run("gsettings set org.gnome.desktop.peripherals.keyboard delay 210", shell=True)
 
@@ -298,9 +299,10 @@ def install_config():
     if exists(fzfdir):
         echo("It seems like you already have installed fzf!")
     else:
-        echo("Install fzf ...")
+        echo("⏳  Install fzf ...")
         run("git clone https://github.com/junegunn/fzf {}".format(fzfdir))
         run("{}/install".format(fzfdir))
+        echo("⌛  Done!")
 
 
 def install_package():
@@ -328,13 +330,14 @@ def install_ocaml():
     if available('opam'):
         echo('Opam already installed')
     else:
-        echo('🎯  Install Opam ...')
+        echo('⏳  Install Opam ...')
         curl_install("https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh")
         run("opam init")
         run("eval $(opam env)")
         run("opam update")
         run("opam switch create kernel ocaml-base-compiler.4.13.1")
         run("eval $(opam env --switch=kernel)")
+        echo("⌛  Done!")
 
     Installer('opam', opam_packages, yes=True).install()
 
@@ -346,8 +349,9 @@ def install_cargo():
     if available('cargo'):
         echo("Cargo already installed")
     else:
-        echo('🎯  Install Cargo ...')
+        echo('⏳  Install Cargo ...')
         curl_install('https://sh.rustup.rs')
+        echo("⌛  Done!")
 
     if os_type() == DARWIN:
         # cannot install some packages due to nightly feature
@@ -377,6 +381,7 @@ def install_fonts():
             Installer('apt', dependencies, yes=True).install()
 
     def download():
+        echo("⬇ Download fonts ...")
         with tempfile.TemporaryDirectory() as tmpdir:
             # D2Coding
             run("wget -P {} https://github.com/naver/d2codingfont/releases/download/VER1.3.2/D2Coding-Ver1.3.2-20180524.zip".format(tmpdir))
@@ -428,8 +433,9 @@ def install(target):
         return
 
     try:
-        echo('🎯  Install {} ...'.format(target))
+        echo('⏳  Install {} ...'.format(target))
         eval('install_{}'.format(target))()
+        echo ('⌛  Done {} ...'.format(target))
     except Exception as e:
         import traceback
         _, msg, tb = sys.exc_info()
