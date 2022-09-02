@@ -210,7 +210,7 @@ class Installer:
     def __init__(self, manager, packages, yes=False):
         if not available(manager):
             echo('⚠️  No such executable: {}'.format(manager), ok=False)
-            sys.exit(2)
+            raise FileNotFoundError(manager)
 
         self.cmd = ['sudo'] if sudo else []
         self.cmd += [manager, 'install']
