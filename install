@@ -293,6 +293,14 @@ def install_package():
     elif os_type() == DEBIAN:
         Installer('apt', apt_packages, yes=True).install()
 
+    fzfdir = os.path.expanduser('~/.fzf')
+    if os.path.exists(fzfdir):
+        echo("It seems like you already have installed fzf!")
+    else:
+        echo("Install fzf ...")
+        run("git clone https://github.com/junegunn/fzf {}".format(fzfdir))
+        run("{}/install".format(fzfdir))
+
 
 def install_ocaml():
     """
