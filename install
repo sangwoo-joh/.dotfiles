@@ -216,9 +216,9 @@ class Installer:
 apt_packages = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-server',
                 'graphviz', 'rsync', 'build-essential', 'tar', 'bzip2', 'gzip', 'zip',
                 'autoconf', 'make', 'etckeeper', 'moreutils', 'libmysqlclient-dev',
-                'bubblewrap', 'curl']
+                'bubblewrap', 'curl', 'wget']
 brew_packages = ['m4', 'tmux', 'bzip2', 'gzip', 'the_silver_searcher', 'htop', 'tree',
-                 'git', 'gpatch', 'fontconfig']
+                 'git', 'gpatch', 'fontconfig', 'wget']
 opam_packages = ['ocamlformat', 'ocp-indent', 'dune', 'base', 'core', 'utop']
 cargo_packages = ['dutree', 'loc', 'bb', 'bat', 'exa', 'eva', 'hyperfine']
 
