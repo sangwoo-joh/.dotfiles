@@ -114,6 +114,13 @@ def ask_yes_or_no(query, default=False):
             sys.stdout.write("Please answer with 'yes' or 'no' (or 'y' or 'n' for short).\n")
 
 
+def available(packages):
+    if isinstance(packages, str):
+        return shutil.which(packages)
+    assert isinstance(packages, list)
+    return all(shutil.which(package) for package in packages)
+
+
 ################################################################################
 # Data
 ################################################################################
@@ -200,7 +207,7 @@ errors = []
 
 class Installer:
     def __init__(self, manager, packages, yes=False):
-        if not shutil.which(manager):
+        if not available(manager):
             echo('⚠️  No such executable: {}'.format(manager), ok=False)
             sys.exit(2)
 
@@ -237,7 +244,7 @@ def base():
         echo('🍎  Setup for macOS ...')
         echo(apple_ascii, no_color=True)
         echo('')
-        if shutil.which('brew'):
+        if available('brew'):
             echo('Found brew in path ...')
             return
 
@@ -278,7 +285,7 @@ def install_config():
     for src, dst in link_info.items():
         link(src, dst)
 
-    if os_type() == DEBIAN and shutil.which('gsettings'):
+    if os_type() == DEBIAN and available('gsettings'):
         echo("Update peripherals values ...")
         run("gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 30", shell=True)
         run("gsettings set org.gnome.desktop.peripherals.keyboard delay 210", shell=True)
@@ -314,7 +321,7 @@ def install_ocaml():
     if os_type() == DEBIAN:
         run("{}apt install bubblewrap --yes".format('sudo ' if sudo else ''))
 
-    if shutil.which('opam'):
+    if available('opam'):
         echo('Opam already installed')
     else:
         echo('🎯  Install Opam ...')
@@ -332,7 +339,7 @@ def install_cargo():
     """
     Install cargo & packages
     """
-    if shutil.which('cargo'):
+    if available('cargo'):
         echo("Cargo already installed")
     else:
         echo('🎯  Install Cargo ...')
@@ -354,14 +361,15 @@ def install_fonts():
     pushd tmp & ./install.sh & popd
     fc-cache -f -v
     """
-    if not shutil.which('wget') or not shutil.which('zip'):
-        if not args.force and not ask_yes_or_no("Could not find `wget` or `zip` in $PATH. Could you let me install the package?", default=True):
+    dependencies = ['wget', 'zip']
+    if not available(dependencies):
+        if not args.force and not ask_yes_or_no("Could not find the required dependencies in $PATH. Could you let me install the package?", default=True):
             echo("Aborted by user", ok=False)
             raise FileNotFoundError("Package wget is not available.")
         if os_type() == DARWIN:
-            Installer('brew', ['wget', 'zip']).install()
+            Installer('brew', dependencies).install()
         elif os_type() == DEBIAN:
-            Installer('apt', ['wget', 'zip'], yes=True).install()
+            Installer('apt', dependencies, yes=True).install()
 
     fontsdir = os.path.expanduser('~/.local/share/fonts')
     os.makedirs(fontsdir, exist_ok=True)
@@ -386,7 +394,7 @@ def install_emacs():
     - Darwin: brew tap d12prosted/emacs-plus && brew install emacs-plus@28 --with-native-comp
     If opam is installed, try install merlin & tuareg opam packages.
     """
-    if shutil.which('emacs'):
+    if available('emacs'):
         echo('Emacs already installed')
         return
 
