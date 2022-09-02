@@ -216,8 +216,10 @@ class Installer:
         self.cmd += [manager, 'install']
         self.cmd += ['--yes'] if yes else []
         self.cmd += packages
+        self.message = "[{}] install {} packages ...".format(manager, len(packages))
 
     def install(self):
+        echo(self.message)
         run(self.cmd, shell=False)
 
 
