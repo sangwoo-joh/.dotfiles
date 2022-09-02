@@ -12,6 +12,7 @@ import tempfile
 import stat
 import http.client
 
+from os.path import abspath, dirname, expanduser, join, exists
 
 ################################################################################
 # Auxiliary functions
@@ -200,7 +201,7 @@ cmd_fonts = subcommands.add_parser('fonts', help='install fonts')
 args = toplevel.parse_args()
 uid = os.geteuid()  # 0 if root
 sudo = (os_type() != DARWIN) and (uid != 0)
-here = os.path.abspath(os.path.dirname(__file__))
+here = abspath(dirname(__file__))
 env = dict(os.environ)
 errors = []
 
@@ -239,7 +240,7 @@ def base():
     """
     Base configuration. This just install brew for macOS
     """
-    os.makedirs(os.path.expanduser('~/.config'), exist_ok=True)
+    os.makedirs(expanduser('~/.config'), exist_ok=True)
     if os_type() == DARWIN:
         echo('🍎  Setup for macOS ...')
         echo(apple_ascii, no_color=True)
@@ -267,9 +268,9 @@ def install_config():
     setup fzf,
     """
     def link(src, dst):
-        src = os.path.join(here, src)
-        dst = os.path.expanduser(dst)
-        if os.path.exists(dst):
+        src = join(here, src)
+        dst = expanduser(dst)
+        if exists(dst):
             echo('Already exist: {} -> {}'.format(src, dst))
             return
         os.symlink(src, dst)
@@ -296,7 +297,7 @@ def install_package():
     Install proper packages
     """
     # setup tzdata auxiliaries
-    if not os.path.exists("/usr/share/zoneinfo/Asia/Seoul") and not os.path.exists("/etc/localtime"):
+    if not exists("/usr/share/zoneinfo/Asia/Seoul") and not exists("/etc/localtime"):
         # from https://stackoverflow.com/a/44333806
         run("ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime")
 
@@ -305,8 +306,8 @@ def install_package():
     elif os_type() == DEBIAN:
         Installer('apt', apt_packages, yes=True).install()
 
-    fzfdir = os.path.expanduser('~/.fzf')
-    if os.path.exists(fzfdir):
+    fzfdir = expanduser('~/.fzf')
+    if exists(fzfdir):
         echo("It seems like you already have installed fzf!")
     else:
         echo("Install fzf ...")
@@ -371,7 +372,7 @@ def install_fonts():
         elif os_type() == DEBIAN:
             Installer('apt', dependencies, yes=True).install()
 
-    fontsdir = os.path.expanduser('~/.local/share/fonts')
+    fontsdir = expanduser('~/.local/share/fonts')
     os.makedirs(fontsdir, exist_ok=True)
 
     with tempfile.TemporaryDirectory() as tmpdir:
