@@ -417,6 +417,10 @@ def _build_emacs():
         run("./configure --with-native-compilation")
         jobs = multiprocessing.cpu_count()
         run("make -j {}".format(jobs))
+        if sudo:
+            run("sudo make install")
+        else:
+            run("make install")
 
     os.chdir(pushd)
     echo ("⌛  Done! Now you have your own emacs!")
