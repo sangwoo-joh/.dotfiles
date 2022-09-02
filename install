@@ -420,7 +420,7 @@ def install_emacs():
     elif os_type() == DEBIAN:
         # TODO: install packages to build emacs, clone https://github.com/emacs-mirror/emacs, checkout emacs-28.1, ./configure --with-native-compilation, make -j {cpu_count//2}
         # packages to install: build-essential, autoconf, texinfo, zlib1g-dev, libgnutls28-dev, pkg-config, libncurses-dev, wget
-        Installer('apt', native_emacs_deps, yes=True).instlall()
+        Installer('apt', native_emacs_deps, yes=True).install()
 
     if available('opam'):
         Installer('opam', ['tuareg', 'merlin', '--assume-depexts'], yes=True).install()
