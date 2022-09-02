@@ -29,4 +29,4 @@
  | ocaml | :heavy_check_mark: | :camel: My favourite programming language. |
  | packages | :heavy_check_mark: | :floppy_disk: Packages that I'm familiar with. |
  | cargo | :heavy_check_mark: | :crab: Some alternatives for built-in binaries. |
- | font | :construction: | :black_nib: [D2coding](https://github.com/naver/d2codingfont) and [powerline](https://github.com/powerline/fonts). |
+ | font | :heavy_check_mark: | :black_nib: [D2coding](https://github.com/naver/d2codingfont) and [powerline](https://github.com/powerline/fonts). |
