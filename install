@@ -352,6 +352,7 @@ def install_fonts():
     wget https://github.com/naver/d2codingfont/releases/download/VER1.3.2/D2Coding-Ver1.3.2-20180524.zip
     git clone https://github.com/powerline/fonts.git to tmp
     pushd tmp & ./install.sh & popd
+    fc-cache -f -v
     """
     if not shutil.which('wget') or not shutil.which('zip'):
         if not args.force and not ask_yes_or_no("Could not find `wget` or `zip` in $PATH. Could you let me install the package?", default=True):
@@ -374,6 +375,8 @@ def install_fonts():
         # Powerline
         run("git clone https://github.com/powerline/fonts.git {}/powerline".format(tmpdir))
         run("{}/powerline/install.sh".format(tmpdir))
+
+    run("fc-cache -f -v")
 
 
 def install_emacs():
