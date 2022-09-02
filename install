@@ -365,6 +365,9 @@ def install_cargo():
         cargo_packages.remove('bb')
         cargo_packages.remove('bat')
         cargo_packages.remove('hyperfine')
+
+    cargobin = expanduser('~/.cargo/bin')
+    env['PATH'] = append_path(env.get('PATH'), cargobin)
     Installer('cargo', cargo_packages).install()
 
 
