@@ -406,9 +406,10 @@ def install_fonts():
 
 def _build_emacs():
     """
-    NOTE: This function MUST be called by install_emacs with DEBIAN, with all the dependencies already installed.
+    NOTE: This function MUST be called by install_emacs with DEBIAN
     """
     echo("⏳  Start to build emacs ...")
+    Installer('apt', native_emacs_deps, yes=True).install()
     pushd = os.getcwd()
     with tempfile.TemporaryDirectory() as tmpdir:
         run("git clone https://github.com/emacs-mirror/emacs {}".format(tmpdir))
@@ -442,9 +443,6 @@ def install_emacs():
         run("brew tap d12prosted/emacs-plus")
         run("brew install emacs-plus@28 --with-native-comp")
     elif os_type() == DEBIAN:
-        # TODO: install packages to build emacs, clone https://github.com/emacs-mirror/emacs, checkout emacs-28.1, ./configure --with-native-compilation, make -j {cpu_count//2}
-        # packages to install: build-essential, autoconf, texinfo, zlib1g-dev, libgnutls28-dev, pkg-config, libncurses-dev, wget
-        Installer('apt', native_emacs_deps, yes=True).install()
         _build_emacs()
 
     if available('opam'):
