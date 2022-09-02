@@ -336,7 +336,31 @@ def install_cargo():
 def install_fonts():
     """
     Install fonts: D2Coding, powerline
+    wget https://github.com/naver/d2codingfont/releases/download/VER1.3.2/D2Coding-Ver1.3.2-20180524.zip
+    git clone https://github.com/powerline/fonts.git to tmp
+    pushd tmp & ./install.sh & popd
     """
+    if not shutil.which('wget'):
+        if not args.force and not ask_yes_or_no("Could not find wget in $PATH. Could you let me install the package?", default=True):
+            echo("Aborted by user", ok=False)
+            raise FileNotFoundError("Package wget is not available.")
+        if os_type() == DARWIN:
+            Installer('brew', ['wget']).install()
+        elif os_type() == DEBIAN:
+            Installer('apt', ['wget'], yes=True).install()
+
+    fontsdir = os.path.expanduser('~/.local/share/fonts')
+    os.makedirs(fontsdir, exist_ok=True)
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        # D2Coding
+        run("wget -P {} https://github.com/naver/d2codingfont/releases/download/VER1.3.2/D2Coding-Ver1.3.2-20180524.zip".format(tmpdir.name))
+        run("unzip {}/D2Coding-Ver1.3.2-20180524.zip -d {}".format(tmpdir.name, tmpdir.name))
+        run("mv {}/D2Coding/*.ttf {}".format(tmpdir.name, fontsdir))
+
+        # Powerline
+        run("git clone https://github.com/powerline/fonts.git {}/powerline".format(tmpdir.name))
+        run("{}/powerline/install.sh".format(tmpdir.name))
 
 
 def install_emacs():
