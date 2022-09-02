@@ -265,7 +265,8 @@ def install_config():
     """
     Link .*rc files,
     global keyboard speed setting in case of Linux,
-    setup fzf,
+    setup fzf.
+    NOTE: zsh is not installed through this step. You MUST install zsh and change zsh as default shell by yourself. This is because of WSL 2 issue.
     """
     def link(src, dst):
         src = join(here, src)

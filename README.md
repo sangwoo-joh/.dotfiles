@@ -30,3 +30,10 @@
  | packages | :heavy_check_mark: | :floppy_disk: Packages that I'm familiar with. |
  | cargo | :heavy_check_mark: | :crab: Some alternatives for built-in binaries. |
  | font | :heavy_check_mark: | :black_nib: [D2coding](https://github.com/naver/d2codingfont) and [powerline](https://github.com/powerline/fonts). |
+
+## Alerts
+ - `zsh` is NOT INSTALLED by this installer, even though `./install
+   config` sets up some rc files for `zsh`. This is because I also use
+   WSL2 *without* `zsh`. So if you want to use my `zsh` configurations
+   correctly, you should install `zsh` by yourself and change `zsh` as
+   default shell via `sudo chsh -s $(which zsh)`.
