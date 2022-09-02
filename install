@@ -61,7 +61,10 @@ def run(cmd, shell=True, check=False):
 
 def curl_install(link):
     url = link.split('://')[1]
-    url, uri = url.split('/', 1)
+    try:
+        url, uri = url.split('/', 1)
+    except ValueError:
+        uri = ''
     conn = http.client.HTTPSConnection(url)
     conn.request('GET', '/' + uri)
     res = conn.getresponse()
