@@ -408,6 +408,7 @@ def _build_emacs():
     """
     NOTE: This function MUST be called by install_emacs with DEBIAN, with all the dependencies already installed.
     """
+    echo("⏳  Start to build emacs ...")
     pushd = os.getcwd()
     with tempfile.TemporaryDirectory() as tmpdir:
         run("git clone https://github.com/emacs-mirror/emacs {}".format(tmpdir))
@@ -418,6 +419,7 @@ def _build_emacs():
         run("make -j {}".format(jobs))
 
     os.chdir(pushd)
+    echo ("⌛  Done! Now you have your own emacs!")
 
 
 def install_emacs():
@@ -438,6 +440,7 @@ def install_emacs():
         # TODO: install packages to build emacs, clone https://github.com/emacs-mirror/emacs, checkout emacs-28.1, ./configure --with-native-compilation, make -j {cpu_count//2}
         # packages to install: build-essential, autoconf, texinfo, zlib1g-dev, libgnutls28-dev, pkg-config, libncurses-dev, wget
         Installer('apt', native_emacs_deps, yes=True).install()
+        _build_emacs()
 
     if available('opam'):
         Installer('opam', ['tuareg', 'merlin', '--assume-depexts'], yes=True).install()
