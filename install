@@ -228,6 +228,8 @@ apt_packages = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-serv
                 'graphviz', 'rsync', 'build-essential', 'tar', 'bzip2', 'gzip', 'zip',
                 'autoconf', 'make', 'etckeeper', 'moreutils', 'libmysqlclient-dev',
                 'bubblewrap', 'curl', 'wget']
+native_emacs_deps = ['build-essential', 'autoconf', 'texinfo', 'zlib1g-dev',
+                     'libgnutls28-dev', 'pkg-config', 'libncurses-dev', 'wget']
 brew_packages = ['m4', 'tmux', 'bzip2', 'gzip', 'the_silver_searcher', 'htop', 'tree',
                  'git', 'gpatch', 'fontconfig', 'wget']
 opam_packages = ['ocamlformat', 'ocp-indent', 'dune', 'base', 'core', 'utop']
@@ -418,8 +420,7 @@ def install_emacs():
     elif os_type() == DEBIAN:
         # TODO: install packages to build emacs, clone https://github.com/emacs-mirror/emacs, checkout emacs-28.1, ./configure --with-native-compilation, make -j {cpu_count//2}
         # packages to install: build-essential, autoconf, texinfo, zlib1g-dev, libgnutls28-dev, pkg-config, libncurses-dev, wget
-
-        pass
+        Installer('apt', native_emacs_deps, yes=True).instlall()
 
     if available('opam'):
         Installer('opam', ['tuareg', 'merlin', '--assume-depexts'], yes=True).install()
