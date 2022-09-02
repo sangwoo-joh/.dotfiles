@@ -362,8 +362,9 @@ def install_fonts():
     pushd tmp & ./install.sh & popd
     fc-cache -f -v
     """
+    binaries = ['wget', 'zip', 'fc-cache']
     dependencies = ['wget', 'zip', 'fontconfig']
-    if not available(dependencies):
+    if not available(binaries):
         if not args.force and not ask_yes_or_no("Could not find the required dependencies in $PATH. Could you let me install the package?", default=True):
             echo("Aborted by user", ok=False)
             raise FileNotFoundError("Package wget is not available.")
