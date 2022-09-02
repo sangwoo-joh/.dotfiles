@@ -25,7 +25,7 @@
  | Target | Status | Description |
  | --- | :---: | --- |
  | configurations | :heavy_check_mark: | :house: Personal configurations incuding zsh, tmux, git, nvim. |
- | emacs | :heavy_check_mark: (:apple:), :construction: (:penguin:) | :unicorn: You should use Emacs. I'm serious. |
+ | emacs | :heavy_check_mark: | :unicorn: You should use Emacs. I'm serious. |
  | ocaml | :heavy_check_mark: | :camel: My favourite programming language. |
  | packages | :heavy_check_mark: | :floppy_disk: Packages that I'm familiar with. |
  | cargo | :heavy_check_mark: | :crab: Some alternatives for built-in binaries. |
