@@ -459,9 +459,9 @@ def install(target):
         return
 
     try:
-        echo('⏳  Start to install {} ...'.format(target))
+        echo('🎯  Start to install {} ...'.format(target))
         eval('install_{}'.format(target))()
-        echo ('⌛  Completed to install {} !'.format(target))
+        echo ('🎯  Completed to install {} !'.format(target))
     except Exception as e:
         import traceback
         _, msg, tb = sys.exc_info()
