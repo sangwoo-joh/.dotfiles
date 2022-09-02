@@ -362,7 +362,7 @@ def install_emacs():
 
 
 def check_target(target):
-    return args.invoked_command in {'all', target}
+    return args.invoked_command in {None, 'all', target}
 
 
 def install(target):
@@ -384,10 +384,8 @@ def install(target):
 # Actual process
 ################################################################################
 
-if args.invoked_command is None:
-    if ask_yes_or_no("Default install option is all. Are you sure to continue?"):
-        args.invoked_command = 'all'
-    else:
+if not args.force and args.invoked_command is None:
+    if not ask_yes_or_no("Default install option is all. Are you sure to continue?"):
         echo('Aborted by user', ok=False)
         sys.exit(1)
 
