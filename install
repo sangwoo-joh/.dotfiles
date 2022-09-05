@@ -121,9 +121,9 @@ def ask_yes_or_no(query, default=False):
 
 def available(packages):
     if isinstance(packages, str):
-        return shutil.which(packages)
+        return shutil.which(packages, path=env['PATH'])
     assert isinstance(packages, list)
-    return all(shutil.which(package) for package in packages)
+    return all(shutil.which(package, path=env['PATH']) for package in packages)
 
 
 ################################################################################
