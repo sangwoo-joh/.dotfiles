@@ -9,3 +9,5 @@ alias ssh-hosts="grep -P \"^Host ([^*]+)$\" $HOME/.ssh/config | sed 's/Host //'"
 alias jsonify='python -m json.tool'
 alias ls='exa'
 [[ -s $(which nemo) ]] && alias here='nemo .'
+alias caml='eval $(opam env)'
+alias os='opam switch'
