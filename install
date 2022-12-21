@@ -251,6 +251,7 @@ def base():
     Base configuration. This just install brew for macOS
     """
     os.makedirs(expanduser('~/.config'), exist_ok=True)
+    curl_install('https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh')
     if os_type() == DARWIN:
         echo('🍎  Setup for macOS ...')
         echo(apple_ascii, no_color=True)
