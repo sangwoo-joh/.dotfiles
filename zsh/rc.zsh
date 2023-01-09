@@ -44,3 +44,6 @@ fi
 if [ -d ~/.dotfiles/rtags ]; then
     export PATH=$PATH:~/.dotfiles/rtags/bin
 fi
+
+export GEM_HOME="$HOME/.gems"
+export PATH="$HOME/.gems/bin:$PATH"
