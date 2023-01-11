@@ -35,7 +35,6 @@ fi
 
 [[ ! -f ~/.zsh/p10k.zsh ]] || source ~/.zsh/p10k.zsh
 [[ ! -f ~/.zsh/ocaml.zsh ]] || source ~/.zsh/ocaml.zsh
-[[ ! -f ~/.zsh/alias.zsh ]] || source ~/.zsh/alias.zsh
 [[ ! -f ~/.zsh/hook.zsh ]] || source ~/.zsh/hook.zsh
 [[ ! -f ~/.config/z/z.sh ]] || source ~/.config/z/z.sh
 [[ ! -f ~/.fzf.zsh ]] || source ~/.fzf.zsh
@@ -62,3 +61,5 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     source /opt/homebrew/opt/chruby/share/chruby/auto.sh
     chruby ruby-3.1.1
 fi
+
+[[ ! -f ~/.zsh/alias.zsh ]] || source ~/.zsh/alias.zsh
