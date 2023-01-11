@@ -50,3 +50,4 @@ export GEM_HOME="$HOME/.gems"
 export PATH="$HOME/.gems/bin:$PATH"
 
 [ -d "$HOME/.local/bin" ] && export PATH="$PATH:$HOME/.local/bin"
+export PATH=$PATH:"$HOME/.emacs.d/bin"
