@@ -51,3 +51,14 @@ export PATH="$HOME/.gems/bin:$PATH"
 
 [ -d "$HOME/.local/bin" ] && export PATH="$PATH:$HOME/.local/bin"
 export PATH=$PATH:"$HOME/.emacs.d/bin"
+
+if [[ $OSTYPE == 'darwin'* ]]; then
+    export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
+    export LDFLAGS="-L/opt/homebrew/opt/llvm/lib"
+    export CPPFLAGS="-I/opt/homebrew/opt/llvm/include"
+    export CXXFLAGS="-I/opt/homebrew/opt/llvm/include"
+    eval "$(rbenv init - zsh)"
+    source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+    source /opt/homebrew/opt/chruby/share/chruby/auto.sh
+    chruby ruby-3.1.1
+fi
