@@ -267,6 +267,7 @@ def base():
         env['PATH'] = append_path(env.get('PATH'), '/opt/homebrew/bin')
         run('brew update')
         run('brew install gpatch git')
+        run('xcode-select --install')
     elif os_type() == DEBIAN:
         echo('🐧  Setup for Linux ...')
         echo(tux_ascii, no_color=True)
