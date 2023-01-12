@@ -9,9 +9,16 @@ fi
 INSTALLED_VERSION=$(nvm ls 16)
 if grep -q "16" <<< "$INSTALLED_VERSION";
 then
-    echo "Use node 16"
+    echo "Node 16 is already installed"
 else
     echo "Install node 16"
     nvm install 16
 fi
-nvm use 16
+CURRENT_VERSION=$(nvm current)
+if grep -q "16" <<< "$CURRENT_VERSION";
+then
+    echo "Node 16 is already set as current"
+else
+    echo "Set node 16 as current"
+    nvm use 16
+fi
