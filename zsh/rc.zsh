@@ -48,6 +48,12 @@ fi
 export GEM_HOME="$HOME/.gems"
 export PATH="$HOME/.gems/bin:$PATH"
 
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/sangwoo-joh/google-cloud-sdk/path.zsh.inc' ]; then . '/home/sangwoo-joh/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/sangwoo-joh/google-cloud-sdk/completion.zsh.inc' ]; then . '/home/sangwoo-joh/google-cloud-sdk/completion.zsh.inc'; fi
+
 [ -d "$HOME/.local/bin" ] && export PATH="$PATH:$HOME/.local/bin"
 export PATH=$PATH:"$HOME/.emacs.d/bin"
 
