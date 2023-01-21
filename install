@@ -238,7 +238,8 @@ native_emacs_deps = ['build-essential', 'autoconf', 'texinfo', 'zlib1g-dev',
                      'libgccjit-9-dev']
 brew_packages = ['m4', 'tmux', 'bzip2', 'gzip', 'the_silver_searcher', 'htop', 'tree',
                  'git', 'gpatch', 'fontconfig', 'wget',
-                 'ripgrep', 'coreutils', 'fd', 'ispell']
+                 'ripgrep', 'coreutils', 'fd', 'ispell',
+                 'rbenv', 'ruby-build']
 opam_packages = ['ocamlformat', 'ocp-indent', 'dune', 'base', 'core', 'utop']
 cargo_packages = ['dutree', 'loc', 'bb', 'bat', 'exa', 'eva', 'hyperfine']
 
