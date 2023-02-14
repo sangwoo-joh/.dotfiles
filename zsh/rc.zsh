@@ -46,15 +46,15 @@ else
     source /etc/zsh_command_not_found
 fi
 
-[[ ! -f "$HOME/.cargo/env" ]] || source "$HOME/.cargo/env"
-[[ ! -f "$HOME/.zsh/p10k.zsh" ]] || source "$HOME/.zsh/p10k.zsh"
-[[ ! -f "$HOME/.zsh/ocaml.zsh" ]] || source "$HOME/.zsh/ocaml.zsh"
-[[ ! -f "$HOME/.zsh/hook.zsh" ]] || source "$HOME/.zsh/hook.zsh"
-[[ ! -f "$HOME/.config/z/z.sh" ]] || source "$HOME/.config/z/z.sh"
-[[ ! -f "$HOME/.fzf.zsh" ]] || source "$HOME/.fzf.zsh"
-[[ ! -f "$HOME/.zsh/nvm.zsh" ]] || source "$HOME/.zsh/nvm.zsh"
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+[[ -f "$HOME/.zsh/p10k.zsh" ]] && source "$HOME/.zsh/p10k.zsh"
+[[ -x "$(which ocaml)" ]] && [[ -f "$HOME/.zsh/ocaml.zsh" ]] && source "$HOME/.zsh/ocaml.zsh"
+[[ -x "$(which ocaml)" ]] && [[ -f "$HOME/.zsh/hook.zsh" ]] && source "$HOME/.zsh/hook.zsh"
+[[ -f "$HOME/.config/z/z.sh" ]] && source "$HOME/.config/z/z.sh"
+[[ -f "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
+[[ -x "$(which nvm)" ]] && [[ -f "$HOME/.zsh/nvm.zsh" ]] && source "$HOME/.zsh/nvm.zsh"
 
 # load alias finally
 [[ ! -f "$HOME/.zsh/alias.zsh" ]] || source "$HOME/.zsh/alias.zsh"
 
-eval "$(rbenv init - zsh)"
+[[ -x "$(which rbenv)" ]] && eval "$(rbenv init - zsh)"
