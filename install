@@ -307,15 +307,6 @@ def install_config():
         run("gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 30", shell=True)
         run("gsettings set org.gnome.desktop.peripherals.keyboard delay 210", shell=True)
 
-    fzfdir = expanduser('~/.fzf')
-    if exists(fzfdir):
-        echo("It seems like you already have installed fzf!")
-    else:
-        echo("⏳  Install fzf ...")
-        run("git clone https://github.com/junegunn/fzf {}".format(fzfdir))
-        run("{}/install".format(fzfdir))
-        echo("⌛  Done!")
-
 
 def install_package():
     """
@@ -330,6 +321,15 @@ def install_package():
         Installer('brew', brew_packages).install()
     elif os_type() == DEBIAN:
         Installer('apt', apt_packages, yes=True).install()
+
+    fzfdir = expanduser('~/.fzf')
+    if exists(fzfdir):
+        echo("It seems like you already have installed fzf!")
+    else:
+        echo("⏳  Install fzf ...")
+        run("git clone https://github.com/junegunn/fzf {}".format(fzfdir))
+        run("{}/install".format(fzfdir))
+        echo("⌛  Done!")
 
 
 def install_ocaml():
