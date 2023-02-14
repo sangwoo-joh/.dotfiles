@@ -329,6 +329,16 @@ def install_package():
         run("git clone https://github.com/junegunn/fzf {}".format(fzfdir))
         run("{}/install".format(fzfdir))
         echo("⌛  Done!")
+
+    z_path = expanduser('~/.config/z')
+    if exists(z_path):
+        echo("You alreayd have installed z!")
+    else:
+        echo("⏳  Install z ...")
+        run("git clone --recursive https://github.com/rupa/z.git {}".format(z_path))
+        echo("⌛  Done!")
+
+
     curl_install('https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh')
 
 
