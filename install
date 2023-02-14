@@ -323,7 +323,7 @@ def install_package():
 
     fzfdir = expanduser('~/.fzf')
     if exists(fzfdir):
-        echo("It seems like you already have installed fzf!")
+        echo("You already have installed fzf!")
     else:
         echo("⏳  Install fzf ...")
         run("git clone https://github.com/junegunn/fzf {}".format(fzfdir))
