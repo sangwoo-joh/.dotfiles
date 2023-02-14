@@ -7,7 +7,7 @@ alias dotclear='rm -rf *.dot *.png'
 alias diff='diff -u --color=auto'
 alias ssh-hosts="grep -P \"^Host ([^*]+)$\" $HOME/.ssh/config | sed 's/Host //'"
 alias jsonify='python -m json.tool'
-alias ls='exa'
+[[ -x $(which cargo) ]] && alias ls='exa'
 [[ -s $(which nemo) ]] && alias here='nemo .'
 alias caml='eval $(opam env)'
 alias o='opam'
