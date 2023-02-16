@@ -190,6 +190,7 @@ apple_ascii = '''
 
 toplevel = argparse.ArgumentParser()
 toplevel.add_argument('--force', action='store_true', help='force install')
+toplevel.add_argument('--skip-base', action='store_true', help='skip base package update')
 
 subcommands = toplevel.add_subparsers(dest='invoked_command')
 
@@ -500,7 +501,9 @@ if not args.force and args.invoked_command is None:
         echo('Aborted by user', ok=False)
         sys.exit(1)
 
-base()
+if not args.skip_base:
+    base()
+
 install('config')
 install('package')
 install('ocaml')
