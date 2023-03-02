@@ -280,7 +280,6 @@ def install_config():
     """
     Link .*rc files,
     global keyboard speed setting in case of Linux,
-    setup fzf.
     NOTE: zsh is not installed through this step. You MUST install zsh and change zsh as default shell by yourself. This is because of WSL 2 issue.
     """
     def link(src, dst):
@@ -321,15 +320,6 @@ def install_package():
         Installer('brew', brew_packages).install()
     elif os_type() == DEBIAN:
         Installer('apt', apt_packages, yes=True).install()
-
-    fzfdir = expanduser('~/.fzf')
-    if exists(fzfdir):
-        echo("You already have installed fzf!")
-    else:
-        echo("⏳  Install fzf ...")
-        run("git clone https://github.com/junegunn/fzf {}".format(fzfdir))
-        run("{}/install".format(fzfdir))
-        echo("⌛  Done!")
 
     z_path = expanduser('~/.config/z')
     if exists(z_path):
