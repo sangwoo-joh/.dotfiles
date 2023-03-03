@@ -51,8 +51,8 @@ fi
 
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 [[ -f "$HOME/.zsh/p10k.zsh" ]] && source "$HOME/.zsh/p10k.zsh"
-[[ -x "$(which ocaml)" ]] && [[ -f "$HOME/.zsh/ocaml.zsh" ]] && source "$HOME/.zsh/ocaml.zsh"
-[[ -x "$(which ocaml)" ]] && [[ -f "$HOME/.zsh/hook.zsh" ]] && source "$HOME/.zsh/hook.zsh"
+[[ -x "$(which opam)" ]] && [[ -f "$HOME/.zsh/ocaml.zsh" ]] && source "$HOME/.zsh/ocaml.zsh"
+[[ -x "$(which opam)" ]] && [[ -f "$HOME/.zsh/hook.zsh" ]] && source "$HOME/.zsh/hook.zsh"
 [[ -f "$HOME/.config/z/z.sh" ]] && source "$HOME/.config/z/z.sh"
 [[ -f "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
 [[ -x "$(which nvm)" ]] && [[ -f "$HOME/.zsh/nvm.zsh" ]] && source "$HOME/.zsh/nvm.zsh"
