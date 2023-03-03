@@ -55,7 +55,7 @@ fi
 [[ -x "$(which opam)" ]] && [[ -f "$HOME/.zsh/hook.zsh" ]] && source "$HOME/.zsh/hook.zsh"
 [[ -f "$HOME/.config/z/z.sh" ]] && source "$HOME/.config/z/z.sh"
 [[ -f "$HOME/.fzf.zsh" ]] && source "$HOME/.fzf.zsh"
-[[ -x "$(which nvm)" ]] && [[ -f "$HOME/.zsh/nvm.zsh" ]] && source "$HOME/.zsh/nvm.zsh"
+[[ -d "$HOME/.nvm" ]] && source "$HOME/.zsh/nvm.zsh"
 
 # load alias finally
 [[ ! -f "$HOME/.zsh/alias.zsh" ]] || source "$HOME/.zsh/alias.zsh"
