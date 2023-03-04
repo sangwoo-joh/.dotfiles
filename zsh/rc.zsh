@@ -66,3 +66,4 @@ fi
 [[ ! -f "$HOME/.zsh/alias.zsh" ]] || source "$HOME/.zsh/alias.zsh"
 
 [[ -x "$(which rbenv)" ]] && eval "$(rbenv init - zsh)"
+[[ -d "$HOME/.git-fuzzy/bin" ]] && export PATH=$PATH:"$HOME/.git-fuzzy/bin"

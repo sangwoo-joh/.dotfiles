@@ -329,6 +329,13 @@ def install_package():
         run("git clone --recursive https://github.com/rupa/z.git {}".format(z_path))
         echo("⌛  Done!")
 
+    git_fuzzy_path = expanduser('~/.git-fuzzy')
+    if exists(git_fuzzy_path):
+        echo("You already have installed git-fuzzy!")
+    else:
+        echo("⏳  Install git-fuzzy ...")
+        run("git clone https://github.com/bigH/git-fuzzy.git {}".format(git_fuzzy_path))
+        echoe("⌛  Done!")
 
     curl_install('https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh')
 
