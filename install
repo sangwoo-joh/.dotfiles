@@ -306,6 +306,14 @@ def install_config():
         run("gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 30", shell=True)
         run("gsettings set org.gnome.desktop.peripherals.keyboard delay 210", shell=True)
 
+    authinfo_path = expanduser('~/.authinfo')
+    if exists(authinfo_path):
+        echo("You already have authinfo file. Please check it.")
+    else:
+        echo("⏳ Copying .authinfo for magit-forge.")
+        run("cp {} {}".format(join(here, 'emacs', '.authinfo.template'), authinfo_path))
+        echo("⏳ Done! You need to setup TOKEN variable properly!")
+
 
 def install_package():
     """
