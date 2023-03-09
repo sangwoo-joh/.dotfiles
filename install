@@ -355,7 +355,8 @@ def install_package():
         run("git clone https://github.com/bigH/git-fuzzy.git {}".format(git_fuzzy_path))
         echo("⌛  Done!")
 
-    curl_install('https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh')
+    # FIXME: nvm install is not working
+    # curl_install('https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh')
 
 
 def install_ocaml():
