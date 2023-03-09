@@ -353,7 +353,7 @@ def install_package():
     else:
         echo("⏳  Install git-fuzzy ...")
         run("git clone https://github.com/bigH/git-fuzzy.git {}".format(git_fuzzy_path))
-        echoe("⌛  Done!")
+        echo("⌛  Done!")
 
     curl_install('https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh')
 
