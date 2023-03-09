@@ -201,6 +201,7 @@ cmd_ocaml = subcommands.add_parser('ocaml', help='install OCaml')
 cmd_package = subcommands.add_parser('package', help='install packages')
 cmd_cargo = subcommands.add_parser('cargo', help='install cargo packages')
 cmd_fonts = subcommands.add_parser('fonts', help='install fonts')
+cmd_test = subcommands.add_parser('test', help='test installation')
 
 
 args = toplevel.parse_args()
@@ -488,6 +489,13 @@ def install_emacs():
         Installer('opam', ['tuareg', 'merlin', '--assume-depexts'], yes=True).install()
 
 
+def install_test():
+    """
+    Test install
+    """
+    curl_install('https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh')
+
+
 def check_target(target):
     return args.invoked_command in {None, 'all', target}
 
@@ -520,6 +528,7 @@ if not args.force and args.invoked_command is None:
 if not args.skip_base:
     base()
 
+install('test')
 install('config')
 install('package')
 install('ocaml')
