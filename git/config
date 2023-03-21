@@ -6,3 +6,5 @@
 [oh-my-zsh]
 	hide-dirty = 1
 	hide-status = 1
+[url "git@github.com:"]
+     insteadOf = gh:
