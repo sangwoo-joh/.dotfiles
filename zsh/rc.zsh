@@ -1,3 +1,4 @@
+source "$HOME/.zsh/path.zsh"
 source "$HOME/.zsh/antigen.zsh"
 
 antigen use oh-my-zsh
@@ -32,21 +33,11 @@ setopt nonomatch
 
 setopt NO_HUP
 
-# conditional rtags
-if [ -d "$HOME/.dotfiles/rtags" ]; then
-    export PATH=$PATH:"$HOME/.dotfiles/rtags/bin"
-fi
-
-# PATH
-export GEM_HOME="$HOME/.gems"
-export PATH="$HOME/.gems/bin":"$HOME/.local/bin":"$HOME/.emacs.d/bin":"$HOME/.rbenv/bin":$PATH
-
 [[ ! -f "$HOME/google-cloud-sdk/path.zsh.inc" ]] || . "$HOME/google-cloud-sdk/path.zsh.inc"
 [[ ! -f "$HOME/google-cloud-sdk/completion.zsh.inc" ]] || . "$HOME/google-cloud-sdk/completion.zsh.inc"
 
 if [[ $OSTYPE == 'darwin'* ]]; then
     eval $(/opt/homebrew/bin/brew shellenv)
-    export PATH="/opt/homebrew/bin:$PATH"
     export LDFLAGS="-L/opt/homebrew/lib"
     export CPPFLAGS="-I/opt/homebrew/include"
     export CXXFLAGS="-I/opt/homebrew/include"
@@ -66,4 +57,3 @@ fi
 [[ ! -f "$HOME/.zsh/alias.zsh" ]] || source "$HOME/.zsh/alias.zsh"
 
 [[ -x "$(which rbenv)" ]] && eval "$(rbenv init - zsh)"
-[[ -d "$HOME/.git-fuzzy/bin" ]] && export PATH=$PATH:"$HOME/.git-fuzzy/bin"
