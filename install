@@ -359,6 +359,18 @@ def install_package():
     # FIXME: nvm install is not working
     # curl_install('https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh')
 
+    rtags_path = expanduser('~/.dotfiles/rtags')
+    if exists(rtags_path):
+        echo("You already have installed rtags!")
+    else:
+        echo("⏳  Install rtags ...")
+        run("git clone --recursive https://github.com/Andersbakken/rtags.git {}".format(rtags_path))
+        os.chdir(rtags_path)
+        run("cmake .")
+        jobs = multiprocessing.cpu_count() - 1
+        run("make -j{}".format(jobs))
+        echo("⌛  Done!")
+
 
 def install_ocaml():
     """
