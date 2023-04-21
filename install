@@ -204,12 +204,14 @@ cmd_fonts = subcommands.add_parser('fonts', help='install fonts')
 cmd_test = subcommands.add_parser('test', help='test installation')
 
 
+# constant variables
 args = toplevel.parse_args()
 uid = os.geteuid()  # 0 if root
 sudo = (os_type() != DARWIN) and (uid != 0)
 here = abspath(dirname(__file__))
 env = dict(os.environ)
 errors = []
+jobs = multiprocessing.cpu_count() - 1
 
 
 class Installer:
@@ -367,7 +369,6 @@ def install_package():
         run("git clone --recursive https://github.com/Andersbakken/rtags.git {}".format(rtags_path))
         os.chdir(rtags_path)
         run("cmake .")
-        jobs = multiprocessing.cpu_count() - 1
         run("make -j{}".format(jobs))
         echo("⌛  Done!")
 
@@ -469,7 +470,6 @@ def _build_emacs():
         run("git checkout emacs-28.1")
         run("./autogen.sh")
         run("./configure --with-native-compilation")
-        jobs = multiprocessing.cpu_count()
         run("make -j {}".format(jobs))
         if sudo:
             run("sudo make install")
