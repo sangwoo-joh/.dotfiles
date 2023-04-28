@@ -236,13 +236,13 @@ apt_packages = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-serv
                 'graphviz', 'rsync', 'build-essential', 'tar', 'bzip2', 'gzip', 'zip',
                 'autoconf', 'make', 'etckeeper', 'moreutils', 'libmysqlclient-dev',
                 'bubblewrap', 'curl', 'wget',
-                'ripgrep', 'fd-find', 'ispell']
+                'ripgrep', 'fd-find', 'iotop']
 native_emacs_deps = ['build-essential', 'autoconf', 'texinfo', 'zlib1g-dev',
                      'libgnutls28-dev', 'pkg-config', 'libncurses-dev', 'wget',
                      'libgccjit-9-dev']
 brew_packages = ['m4', 'tmux', 'bzip2', 'gzip', 'the_silver_searcher', 'htop', 'tree',
                  'git', 'gpatch', 'fontconfig', 'wget',
-                 'ripgrep', 'coreutils', 'fd', 'ispell',
+                 'ripgrep', 'coreutils', 'fd', 'iotop',
                  'rbenv', 'ruby-build']
 opam_packages = ['ocamlformat', 'ocp-indent', 'dune', 'base', 'core', 'utop']
 cargo_packages = ['dutree', 'loc', 'bb', 'bat', 'exa', 'eva', 'hyperfine']
