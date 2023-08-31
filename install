@@ -207,7 +207,7 @@ cmd_test = subcommands.add_parser('test', help='test installation')
 # constant variables
 args = toplevel.parse_args()
 uid = os.geteuid()  # 0 if root
-sudo = (os_type() != DARWIN) and (uid != 0)
+gsudo = (os_type() != DARWIN) and (uid != 0)
 here = abspath(dirname(__file__))
 env = dict(os.environ)
 errors = []
@@ -215,7 +215,7 @@ jobs = multiprocessing.cpu_count() - 1
 
 
 class Installer:
-    def __init__(self, manager, packages, yes=False):
+    def __init__(self, manager, packages, yes=False, sudo=False):
         if not available(manager):
             echo('⚠️  No such executable: {}'.format(manager), ok=False)
             raise FileNotFoundError(manager)
@@ -276,7 +276,7 @@ def base():
         echo('🐧  Setup for Linux ...')
         echo(tux_ascii, no_color=True)
         echo('')
-        run('{}apt update --yes'.format('sudo ' if sudo else ''))
+        run('{}apt update --yes'.format('sudo ' if gsudo else ''))
 
 
 def install_config():
@@ -331,7 +331,7 @@ def install_package():
     if os_type() == DARWIN:
         Installer('brew', brew_packages).install()
     elif os_type() == DEBIAN:
-        Installer('apt', apt_packages, yes=True).install()
+        Installer('apt', apt_packages, yes=True, sudo=gsudo).install()
 
     fzfdir = expanduser('~/.fzf')
     if exists(fzfdir):
@@ -378,7 +378,7 @@ def install_ocaml():
     Install ocaml & packages
     """
     if os_type() == DEBIAN and not available('bwrap'):
-        Installer('apt', ['bubblewrap'], yes=True).install()
+        Installer('apt', ['bubblewrap'], yes=True, sudo=gsudo).install()
 
     if available('opam'):
         echo('Opam already installed')
@@ -434,7 +434,7 @@ def install_fonts():
         if os_type() == DARWIN:
             Installer('brew', dependencies).install()
         elif os_type() == DEBIAN:
-            Installer('apt', dependencies, yes=True).install()
+            Installer('apt', dependencies, yes=True, sudo=gsudo).install()
 
     def download():
         echo("⬇ Download fonts ...")
@@ -462,7 +462,7 @@ def _build_emacs():
     NOTE: This function MUST be called by install_emacs with DEBIAN
     """
     echo("⏳  Start to build emacs ...")
-    Installer('apt', native_emacs_deps, yes=True).install()
+    Installer('apt', native_emacs_deps, yes=True, sudo=gsudo).install()
     pushd = os.getcwd()
     with tempfile.TemporaryDirectory() as tmpdir:
         run("git clone https://github.com/emacs-mirror/emacs {}".format(tmpdir))
@@ -471,7 +471,7 @@ def _build_emacs():
         run("./autogen.sh")
         run("./configure --with-native-compilation")
         run("make -j {}".format(jobs))
-        if sudo:
+        if gsudo:
             run("sudo make install")
         else:
             run("make install")
