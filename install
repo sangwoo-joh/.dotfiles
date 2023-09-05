@@ -467,7 +467,7 @@ def _build_emacs():
     with tempfile.TemporaryDirectory() as tmpdir:
         run("git clone https://github.com/emacs-mirror/emacs {}".format(tmpdir))
         os.chdir(tmpdir)
-        run("git checkout emacs-29.1")
+        run("git checkout emacs-28.1")
         run("./autogen.sh")
         run("./configure --with-native-compilation")
         run("make -j {}".format(jobs))
