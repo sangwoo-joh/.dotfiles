@@ -319,6 +319,50 @@ def install_config():
         echo("⏳ Done! You need to setup TOKEN variable properly!")
 
 
+def _install_fzf():
+    fzfdir = expanduser('~/.fzf')
+    if exists(fzfdir):
+        echo("You already have installed fzf!")
+    else:
+        echo("⏳  Install fzf ...")
+        run("git clone https://github.com/junegunn/fzf {}".format(fzfdir))
+        run("{}/install".format(fzfdir))
+        echo("⌛  Done!")
+
+
+def _install_z():
+    z_path = expanduser('~/.config/z')
+    if exists(z_path):
+        echo("You alreayd have installed z!")
+    else:
+        echo("⏳  Install z ...")
+        run("git clone --recursive https://github.com/rupa/z.git {}".format(z_path))
+        echo("⌛  Done!")
+
+
+def _install_git_fuzzy():
+    git_fuzzy_path = expanduser('~/.git-fuzzy')
+    if exists(git_fuzzy_path):
+        echo("You already have installed git-fuzzy!")
+    else:
+        echo("⏳  Install git-fuzzy ...")
+        run("git clone https://github.com/bigH/git-fuzzy.git {}".format(git_fuzzy_path))
+        echo("⌛  Done!")
+
+
+def _install_rtags():
+    rtags_path = expanduser('~/.dotfiles/rtags')
+    if exists(rtags_path):
+        echo("You already have installed rtags!")
+    else:
+        echo("⏳  Install rtags ...")
+        run("git clone --recursive https://github.com/Andersbakken/rtags.git {}".format(rtags_path))
+        os.chdir(rtags_path)
+        run("cmake .")
+        run("make -j{}".format(jobs))
+        echo("⌛  Done!")
+
+
 def install_package():
     """
     Install proper packages
@@ -333,45 +377,12 @@ def install_package():
     elif os_type() == DEBIAN:
         Installer('apt', apt_packages, yes=True, sudo=gsudo).install()
 
-    fzfdir = expanduser('~/.fzf')
-    if exists(fzfdir):
-        echo("You already have installed fzf!")
-    else:
-        echo("⏳  Install fzf ...")
-        run("git clone https://github.com/junegunn/fzf {}".format(fzfdir))
-        run("{}/install".format(fzfdir))
-        echo("⌛  Done!")
-
-    z_path = expanduser('~/.config/z')
-    if exists(z_path):
-        echo("You alreayd have installed z!")
-    else:
-        echo("⏳  Install z ...")
-        run("git clone --recursive https://github.com/rupa/z.git {}".format(z_path))
-        echo("⌛  Done!")
-
-    git_fuzzy_path = expanduser('~/.git-fuzzy')
-    if exists(git_fuzzy_path):
-        echo("You already have installed git-fuzzy!")
-    else:
-        echo("⏳  Install git-fuzzy ...")
-        run("git clone https://github.com/bigH/git-fuzzy.git {}".format(git_fuzzy_path))
-        echo("⌛  Done!")
-
+    _install_fzf()
+    _install_z()
+    _install_git_fuzzy()
+    _install_rtags()
     # FIXME: nvm install is not working
     # curl_install('https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh')
-
-    rtags_path = expanduser('~/.dotfiles/rtags')
-    if exists(rtags_path):
-        echo("You already have installed rtags!")
-    else:
-        echo("⏳  Install rtags ...")
-        run("git clone --recursive https://github.com/Andersbakken/rtags.git {}".format(rtags_path))
-        os.chdir(rtags_path)
-        run("cmake .")
-        run("make -j{}".format(jobs))
-        echo("⌛  Done!")
-
 
 def install_ocaml():
     """
