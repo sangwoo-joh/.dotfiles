@@ -502,6 +502,12 @@ def _build_emacs():
     echo ("⌛  Done! Now you have your own emacs!")
 
 
+def _install_opam_emacs_package():
+    if available('opam'):
+        Installer('opam', ['tuareg', 'merlin', '--assume-depexts'], yes=True).install()
+    else:
+        echo("Opam is not installed. Skip installing opam packages.", ok=False)
+
 def install_emacs():
     """
     Install emacs & dotemacs
@@ -519,8 +525,7 @@ def install_emacs():
     elif os_type() == DEBIAN:
         _build_emacs()
 
-    if available('opam'):
-        Installer('opam', ['tuareg', 'merlin', '--assume-depexts'], yes=True).install()
+    _install_opam_emacs_package()
 
 
 def install_test():
