@@ -196,7 +196,10 @@ subcommands = toplevel.add_subparsers(dest='invoked_command')
 
 cmd_all = subcommands.add_parser('all', help='install all (default)')
 cmd_config = subcommands.add_parser('config', help='install config (as symlink)')
+
 cmd_emacs = subcommands.add_parser('emacs', help='install emacs settings')
+cmd_emacs.add_argument('--skip-opam', action='store_true', help='skip installing opam package')
+
 cmd_ocaml = subcommands.add_parser('ocaml', help='install OCaml')
 
 cmd_package = subcommands.add_parser('package', help='install packages')
@@ -525,7 +528,8 @@ def install_emacs():
     elif os_type() == DEBIAN:
         _build_emacs()
 
-    _install_opam_emacs_package()
+    if not args.skip_opam:
+        _install_opam_emacs_package()
 
 
 def install_test():
