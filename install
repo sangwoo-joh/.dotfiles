@@ -198,7 +198,13 @@ cmd_all = subcommands.add_parser('all', help='install all (default)')
 cmd_config = subcommands.add_parser('config', help='install config (as symlink)')
 cmd_emacs = subcommands.add_parser('emacs', help='install emacs settings')
 cmd_ocaml = subcommands.add_parser('ocaml', help='install OCaml')
+
 cmd_package = subcommands.add_parser('package', help='install packages')
+cmd_package.add_argument('--skip-fzf', action='store_true', help='skip installing fzf')
+cmd_package.add_argument('--skip-z', action='store_true', help='skip installing z')
+cmd_package.add_argument('--skip-git-fuzzy', action='store_true', help='skip installing git-fuzzy')
+cmd_package.add_argument('--skip-rtags', action='store_true', help='skip installing rtags')
+
 cmd_cargo = subcommands.add_parser('cargo', help='install cargo packages')
 cmd_fonts = subcommands.add_parser('fonts', help='install fonts')
 cmd_test = subcommands.add_parser('test', help='test installation')
@@ -377,10 +383,15 @@ def install_package():
     elif os_type() == DEBIAN:
         Installer('apt', apt_packages, yes=True, sudo=gsudo).install()
 
-    _install_fzf()
-    _install_z()
-    _install_git_fuzzy()
-    _install_rtags()
+    if not args.skip_fzf:
+        _install_fzf()
+    if not args.skip_z:
+        _install_z()
+    if not args.skip_git_fuzzy:
+        _install_git_fuzzy()
+    if not args.skip_rtags:
+        _install_rtags()
+
     # FIXME: nvm install is not working
     # curl_install('https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh')
 
