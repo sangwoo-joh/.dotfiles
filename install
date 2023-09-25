@@ -19,20 +19,20 @@ from os.path import abspath, dirname, expanduser, join, exists
 # Data
 ################################################################################
 
-apt_packages = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-server',
+APT_PACKAGES = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-server',
                 'graphviz', 'rsync', 'build-essential', 'tar', 'bzip2', 'gzip', 'zip',
                 'autoconf', 'make', 'etckeeper', 'moreutils', 'libmysqlclient-dev',
                 'bubblewrap', 'curl', 'wget',
                 'ripgrep', 'fd-find', 'iotop', 'atop']
-native_emacs_deps = ['build-essential', 'autoconf', 'texinfo', 'zlib1g-dev',
+NATIVE_EMACS_DEPS = ['build-essential', 'autoconf', 'texinfo', 'zlib1g-dev',
                      'libgnutls28-dev', 'pkg-config', 'libncurses-dev', 'wget',
                      'libgccjit-9-dev']
-brew_packages = ['m4', 'tmux', 'bzip2', 'gzip', 'the_silver_searcher', 'htop', 'tree',
+BREW_PACKAGES = ['m4', 'tmux', 'bzip2', 'gzip', 'the_silver_searcher', 'htop', 'tree',
                  'git', 'gpatch', 'fontconfig', 'wget',
                  'ripgrep', 'coreutils', 'fd', 'iotop', 'atop',
                  'rbenv', 'ruby-build']
-opam_packages = ['ocamlformat', 'ocp-indent', 'dune', 'base', 'core', 'utop']
-cargo_packages = ['dutree', 'loc', 'bb', 'bat', 'exa', 'eva', 'hyperfine']
+OPAM_PACKAGES = ['ocamlformat', 'ocp-indent', 'dune', 'base', 'core', 'utop']
+CARGO_PACKAGES = ['dutree', 'loc', 'bb', 'bat', 'exa', 'eva', 'hyperfine']
 
 
 ################################################################################
@@ -386,9 +386,9 @@ def install_package():
         run("ln -fs /usr/share/zoneinfo/Asia/Seoul /etc/localtime")
 
     if os_type() == DARWIN:
-        Installer('brew', brew_packages).install()
+        Installer('brew', BREW_PACKAGES).install()
     elif os_type() == DEBIAN:
-        Installer('apt', apt_packages, yes=True, sudo=gsudo).install()
+        Installer('apt', APT_PACKAGES, yes=True, sudo=gsudo).install()
 
     if not args.skip_fzf:
         _install_fzf()
@@ -421,7 +421,7 @@ def install_ocaml():
         run("eval $(opam env --switch=kernel)")
         echo("⌛  Done!")
 
-    Installer('opam', opam_packages, yes=True).install()
+    Installer('opam', OPAM_PACKAGES, yes=True).install()
 
 
 def install_cargo():
@@ -437,13 +437,13 @@ def install_cargo():
 
     if os_type() == DARWIN:
         # cannot install some packages due to nightly feature
-        cargo_packages.remove('bb')
-        cargo_packages.remove('bat')
-        cargo_packages.remove('hyperfine')
+        CARGO_PACKAGES.remove('bb')
+        CARGO_PACKAGES.remove('bat')
+        CARGO_PACKAGES.remove('hyperfine')
 
     cargobin = expanduser('~/.cargo/bin')
     env['PATH'] = append_path(env.get('PATH'), cargobin)
-    Installer('cargo', cargo_packages).install()
+    Installer('cargo', CARGO_PACKAGES).install()
 
 
 def install_fonts():
@@ -491,7 +491,7 @@ def _build_emacs():
     NOTE: This function MUST be called by install_emacs with DEBIAN
     """
     echo("⏳  Start to build emacs ...")
-    Installer('apt', native_emacs_deps, yes=True, sudo=gsudo).install()
+    Installer('apt', NATIVE_EMACS_DEPS, yes=True, sudo=gsudo).install()
     pushd = os.getcwd()
     with tempfile.TemporaryDirectory() as tmpdir:
         run("git clone https://github.com/emacs-mirror/emacs {}".format(tmpdir))
