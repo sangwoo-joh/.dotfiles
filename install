@@ -23,7 +23,7 @@ APT_PACKAGES = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-serv
                 'graphviz', 'rsync', 'build-essential', 'tar', 'bzip2', 'gzip', 'zip',
                 'autoconf', 'make', 'etckeeper', 'moreutils', 'libmysqlclient-dev',
                 'bubblewrap', 'curl', 'wget',
-                'ripgrep', 'fd-find', 'iotop', 'atop']
+                'ripgrep', 'fd-find', 'iotop', 'atop', 'nvtop']
 NATIVE_EMACS_DEPS = ['build-essential', 'autoconf', 'texinfo', 'zlib1g-dev',
                      'libgnutls28-dev', 'pkg-config', 'libncurses-dev', 'wget',
                      'libgccjit-9-dev']
