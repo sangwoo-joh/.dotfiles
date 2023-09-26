@@ -498,7 +498,7 @@ def _build_emacs():
         os.chdir(tmpdir)
         run("git checkout emacs-28.1")
         run("./autogen.sh")
-        run("./configure --with-native-compilation")
+        run("./configure --with-native-compilation --with-mailutils --with-xwidgets --with-cairo --with-rsvg --with-xft --with-json")
         run("make -j {}".format(jobs))
         if gsudo:
             run("sudo make install")
