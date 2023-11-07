@@ -12,3 +12,4 @@
   pr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
   default = "!git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'"
   pr-clean = "!f() { git checkout $(git default); git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done }; f"
+  local-clean = "!sh ~/.dotfiles/git/clean.sh"
