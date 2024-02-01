@@ -41,6 +41,8 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     export LDFLAGS="-L/opt/homebrew/lib"
     export CPPFLAGS="-I/opt/homebrew/include"
     export CXXFLAGS="-I/opt/homebrew/include"
+    export JUPYTER_PATH=/opt/homebrew/share/jupyter
+    export JUPYTER_CONFIG_PATH=/opt/homebrew/etc/jupyter
 else
     source /etc/zsh_command_not_found
 fi
