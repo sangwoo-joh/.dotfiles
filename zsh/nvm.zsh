@@ -6,19 +6,21 @@ fi
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-INSTALLED_VERSION=$(nvm ls 16)
-if grep -q "16" <<< "$INSTALLED_VERSION";
+NODE_VERSION=16
+
+INSTALLED_VERSION=$(nvm ls "$NODE_VERSION")
+if grep -q "$NODE_VERSION" <<< "$INSTALLED_VERSION";
 then
-    echo "Node 16 is already installed"
+    echo "Node $NODE_VERSION is already installed"
 else
-    echo "Install node 16"
-    nvm install 16
+    echo "Install node $NODE_VERSION"
+    nvm install "$NODE_VERSION"
 fi
 CURRENT_VERSION=$(nvm current)
-if grep -q "16" <<< "$CURRENT_VERSION";
+if grep -q "$NODE_VERSION" <<< "$CURRENT_VERSION";
 then
-    echo "Node 16 is already set as current"
+    echo "Node $NODE_VERSION is already set as current"
 else
-    echo "Set node 16 as current"
-    nvm use 16
+    echo "Set node $NODE_VERSION as current"
+    nvm use "$NODE_VERSION"
 fi
