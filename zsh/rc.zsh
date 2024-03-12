@@ -15,7 +15,9 @@ antigen bundle pipenv
 antigen bundle zsh-history-substring-search.zsh
 antigen bundle docker/cli contrib/completion/zsh
 antigen bundle docker/compose contrib/completion/zsh
-antigen theme romkatv/powerlevel10k
+# workaround for https://github.com/zsh-users/antigen/issues/675
+THEME=romkatv/powerlevel10k
+antigen list | grep $THEME; if [ $? -ne 0 ]; then antigen theme $THEME; fi
 antigen apply
 
 HISTSIZE=10000000
