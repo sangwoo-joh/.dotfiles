@@ -219,6 +219,7 @@ cmd_config = subcommands.add_parser('config', help='install config (as symlink)'
 
 cmd_emacs = subcommands.add_parser('emacs', help='install emacs settings')
 cmd_emacs.add_argument('--skip-opam', action='store_true', help='skip installing opam package')
+cmd_emacs.add_argument('--force', action='store_true', help='force install')
 
 cmd_ocaml = subcommands.add_parser('ocaml', help='install OCaml')
 
@@ -493,17 +494,16 @@ def _build_emacs():
     echo("⏳  Start to build emacs ...")
     Installer('apt', NATIVE_EMACS_DEPS, yes=True, sudo=gsudo).install()
     pushd = os.getcwd()
-    with tempfile.TemporaryDirectory() as tmpdir:
-        run("git clone https://github.com/emacs-mirror/emacs {}".format(tmpdir))
-        os.chdir(tmpdir)
-        run("git checkout emacs-28.1")
-        run("./autogen.sh")
-        run("./configure --with-native-compilation --with-mailutils --with-xwidgets --with-cairo --with-rsvg --with-xft --with-json")
-        run("make -j {}".format(jobs))
-        if gsudo:
-            run("sudo make install")
-        else:
-            run("make install")
+    source_dir = "emacs-source"
+    run("git clone https://github.com/emacs-mirror/emacs {} -b emacs-29.3 --depth 1".format(source_dir))
+    os.chdir(source_dir)
+    run("./autogen.sh")
+    run("./configure --with-native-compilation --with-mailutils --with-xwidgets --with-cairo --with-rsvg --with-xft --with-json")
+    run("make -j {}".format(jobs))
+    if gsudo:
+        run("sudo make install")
+    else:
+        run("make install")
 
     os.chdir(pushd)
     echo ("⌛  Done! Now you have your own emacs!")
@@ -522,13 +522,13 @@ def install_emacs():
     - Darwin: brew tap d12prosted/emacs-plus && brew install emacs-plus@28 --with-native-comp
     If opam is installed, try install merlin & tuareg opam packages.
     """
-    if available('emacs'):
+    if available('emacs') and not args.force:
         echo('Emacs already installed')
         return
 
     if os_type() == DARWIN:
         run("brew tap d12prosted/emacs-plus")
-        run("brew install emacs-plus@28 --with-native-comp")
+        run("brew install emacs-plus@29 --with-native-comp")
     elif os_type() == DEBIAN:
         _build_emacs()
 
