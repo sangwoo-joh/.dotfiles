@@ -14,6 +14,7 @@ import http.client
 import multiprocessing
 
 from os.path import abspath, dirname, expanduser, join, exists
+from pathlib import Path
 
 ################################################################################
 # Data
@@ -318,6 +319,10 @@ def install_config():
     }
     for src, dst in link_info.items():
         link(src, dst)
+
+    zsh_custom_path = Path(join(here, "zsh", "custom.zsh"))
+    if not zsh_custom_path.exists():
+        zsh_custom_path.touch()
 
     if os_type() == DEBIAN and available('gsettings'):
         echo("⏳  Update peripherals values ...")

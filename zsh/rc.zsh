@@ -49,6 +49,7 @@ else
     source /etc/zsh_command_not_found
 fi
 
+[[ -f "$HOME/.zsh/custom.zsh" ]] && source "$HOME/.zsh/custom.zsh"
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
 [[ -f "$HOME/.zsh/p10k.zsh" ]] && source "$HOME/.zsh/p10k.zsh"
 [[ -x "$(which opam)" ]] && [[ -f "$HOME/.zsh/ocaml.zsh" ]] && source "$HOME/.zsh/ocaml.zsh"
