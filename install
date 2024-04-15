@@ -323,6 +323,7 @@ def install_config():
     zsh_custom_path = Path(join(here, "zsh", "custom.zsh"))
     if not zsh_custom_path.exists():
         zsh_custom_path.touch()
+    echo('✔ You can use {} to customize additional environment variables'.format(zsh_custom_path))
 
     if os_type() == DEBIAN and available('gsettings'):
         echo("⏳  Update peripherals values ...")
