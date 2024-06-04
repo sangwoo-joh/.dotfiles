@@ -14,3 +14,4 @@
   pr-clean = "!f() { git checkout $(git default); git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done }; f"
   gc-branch = "!sh ~/.dotfiles/git/clean.sh"
   graph = "log --graph --oneline"
+  sync = "fetch --all"
