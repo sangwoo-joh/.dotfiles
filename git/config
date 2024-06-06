@@ -6,6 +6,8 @@
 [oh-my-zsh]
 	hide-dirty = 1
 	hide-status = 1
+[github]
+  user = sangwoo-joh
 [url "git@github.com:"]
      insteadOf = gh:
 [alias]
