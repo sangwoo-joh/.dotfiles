@@ -1,15 +1,15 @@
 [core]
-	pager = less -F -X
+  pager = less -F -X
 [user]
-	name = Sangwoo Joh
-	email = work.sangwoo.joh@gmail.com
+  name = Sangwoo Joh
+  email = work.sangwoo.joh@gmail.com
 [oh-my-zsh]
-	hide-dirty = 1
-	hide-status = 1
+  hide-dirty = 1
+  hide-status = 1
 [github]
   user = sangwoo-joh
 [url "git@github.com:"]
-     insteadOf = gh:
+  insteadOf = gh:
 [alias]
   pr = "!f() { git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
   default = "!git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'"
