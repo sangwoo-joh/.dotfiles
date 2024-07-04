@@ -212,6 +212,10 @@ apple_ascii = '''
 toplevel = argparse.ArgumentParser()
 toplevel.add_argument('--force', action='store_true', help='force install')
 toplevel.add_argument('--skip-base', action='store_true', help='skip base package update')
+toplevel.add_argument('--skip-fzf', action='store_true', help='skip installing fzf')
+toplevel.add_argument('--skip-z', action='store_true', help='skip installing z')
+toplevel.add_argument('--skip-git-fuzzy', action='store_true', help='skip installing git-fuzzy')
+toplevel.add_argument('--skip-rtags', action='store_true', help='skip installing rtags')
 
 subcommands = toplevel.add_subparsers(dest='invoked_command')
 
