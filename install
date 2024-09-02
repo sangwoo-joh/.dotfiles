@@ -505,7 +505,8 @@ def _build_emacs():
     Installer('apt', NATIVE_EMACS_DEPS, yes=True, sudo=gsudo).install()
     pushd = os.getcwd()
     source_dir = "emacs-source"
-    run("git clone https://github.com/emacs-mirror/emacs {} -b emacs-29.3 --depth 1".format(source_dir))
+    if not os.path.isdir(source_dir):
+        run("git clone https://github.com/emacs-mirror/emacs {} -b emacs-29.4 --depth 1".format(source_dir))
     os.chdir(source_dir)
     run("./autogen.sh")
     run("./configure --with-native-compilation --with-mailutils --with-xwidgets --with-cairo --with-rsvg --with-xft --with-json")
