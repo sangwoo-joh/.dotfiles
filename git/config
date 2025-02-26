@@ -1,5 +1,7 @@
 [core]
   pager = less -F -X
+  fsmonitor = true
+  untrackedCache = true
 [user]
   name = Sangwoo Joh
   email = work.sangwoo.joh@gmail.com
@@ -17,3 +19,27 @@
   gc-branch = "!sh ~/.dotfiles/git/clean.sh"
   graph = "log --graph --oneline"
   sync = "fetch --all"
+  out = "log@{u}.."
+
+# stole from Git developers
+[branch]
+  sort = -committerdate
+[tag]
+  sort = version:refname
+[column]
+  ui = auto
+[init]
+  defaultBranch = trunk
+[diff]
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
+[push]
+  default = simple
+  autoSetupRemote = true
+  followTags = true
+[fetch]
+  prune = true
+  pruneTags = true
+  all = true
