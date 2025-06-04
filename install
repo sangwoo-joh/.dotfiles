@@ -496,10 +496,14 @@ def install_fonts():
             run("git clone https://github.com/powerline/fonts.git {}/powerline".format(tmpdir))
             run("{}/powerline/install.sh".format(tmpdir))
 
+            # Menlo
+            run("git clone https://github.com/sangwoo-joh/menlo-for-powerline {}/menlo".format(tmpdir))
+            run("mv {}/menlo/*.ttf {}".format(tmpdir, fontsdir))
+
     fontsdir = expanduser('~/.local/share/fonts')
     os.makedirs(fontsdir, exist_ok=True)
 
-    fonts_to_download = ['D2Coding-Ver1.3.2-20180524.ttf','Ubuntu Mono derivative Powerline.ttf']
+    fonts_to_download = ['D2Coding-Ver1.3.2-20180524.ttf','Ubuntu Mono derivative Powerline.ttf', 'Menlo for Powerline.ttf']
     if not multi_exist(fontsdir, fonts_to_download):
         download()
 
