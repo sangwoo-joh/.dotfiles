@@ -15,6 +15,7 @@ import multiprocessing
 
 from os.path import abspath, dirname, expanduser, join, exists
 from pathlib import Path
+from typing import List
 
 ################################################################################
 # Data
@@ -146,6 +147,13 @@ def available(packages):
     assert isinstance(packages, list)
     return all(shutil.which(package, path=env['PATH']) for package in packages)
 
+
+def multi_exist(base: str, files: List[str]):
+    """
+    Check whether multiple files are exist in the base directory
+    """
+    paths = [join(base, fname) for fname in files]
+    return all(map(lambda p: exists(p), paths))
 
 ################################################################################
 # Data
@@ -491,7 +499,8 @@ def install_fonts():
     fontsdir = expanduser('~/.local/share/fonts')
     os.makedirs(fontsdir, exist_ok=True)
 
-    if not exists(join(fontsdir, 'D2Coding-Ver1.3.2-20180524.ttf')) or not exists(join(fontsdir, 'Ubuntu Mono derivative Powerline.ttf')):
+    fonts_to_download = ['D2Coding-Ver1.3.2-20180524.ttf','Ubuntu Mono derivative Powerline.ttf']
+    if not multi_exist(fontsdir, fonts_to_download):
         download()
 
     run("fc-cache -f -v")
