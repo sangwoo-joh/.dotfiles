@@ -497,8 +497,9 @@ def install_fonts():
             run("{}/powerline/install.sh".format(tmpdir))
 
             # Menlo
-            run("git clone https://github.com/sangwoo-joh/menlo-for-powerline {}/menlo".format(tmpdir))
-            run("mv {}/menlo/*.ttf {}".format(tmpdir, fontsdir))
+            if os_type() == DEBIAN:
+                run("git clone https://github.com/sangwoo-joh/menlo-for-powerline {}/menlo".format(tmpdir))
+                run("mv {}/menlo/*.ttf {}".format(tmpdir, fontsdir))
 
     fontsdir = expanduser('~/.local/share/fonts')
     os.makedirs(fontsdir, exist_ok=True)
