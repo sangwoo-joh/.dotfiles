@@ -47,17 +47,17 @@ FAIL = '\033[91m'
 ENDC = '\033[0m'
 
 
-def echo(message, ok=True, no_color=False, box=False):
+def echo(message, error=False, no_color=False, box=False):
     padded_lines = [(' ' + line + ' ') for line in message.splitlines()]
     if box:
         bar_len = max(len(line) for line in padded_lines)
-        lines = [(OKGREEN if ok else FAIL)]
+        lines = [(FAIL if error else OKGREEN)]
         lines += ['┌' + ('─' * bar_len) + '┐\n']
         lines += [('│' + line.ljust(bar_len) + '│\n') for line in padded_lines]
         lines += ['└' + ('─' * bar_len) + '┘']
         lines += [ENDC]
     else:
-        lines = [(OKGREEN if ok else FAIL)]
+        lines = [(FAIL if error else OKGREEN)]
         lines += ['\n'.join(padded_lines)]
         lines += [ENDC]
     lines = lines if not no_color else lines[1:-1]
@@ -77,7 +77,7 @@ def append_path(path, acc):
 def run(cmd, shell=True, check=False):
     code = subprocess.call(cmd, shell=shell, env=env)
     if not check and code != 0:
-        echo('⚠️  Aborted: {} failed'.format(' '.join(cmd) if isinstance(cmd, list) else cmd), ok=False)
+        echo('⚠️  Aborted: {} failed'.format(' '.join(cmd) if isinstance(cmd, list) else cmd), error=True)
         sys.exit(code)
     return code
 
@@ -116,7 +116,7 @@ def os_type():
     elif os == 'Linux' and any(p in platform.version() for p in {'debian', 'Ubuntu', 'SMP'}):
         return DEBIAN
     else:
-        echo('⚠️  OS {} is not supported!'.format(os), ok=False)
+        echo('⚠️  OS {} is not supported!'.format(os), error=True)
         sys.exit(2)
 
 
@@ -260,7 +260,7 @@ jobs = multiprocessing.cpu_count() - 1
 class Installer:
     def __init__(self, manager, packages, yes=False, sudo=False):
         if not available(manager):
-            echo('⚠️  No such executable: {}'.format(manager), ok=False)
+            echo('⚠️  No such executable: {}'.format(manager), error=True)
             raise FileNotFoundError(manager)
 
         self.cmd = ['sudo'] if sudo else []
@@ -384,7 +384,7 @@ def _install_git_fuzzy():
 
 def install_rtags():
     if os_type () == DARWIN:
-        echo("Not supported for Mac yet.", ok=False)
+        echo("Not supported for Mac yet.", error=True)
         return
     Installer('apt', RTAGS_PACKAGE, yes=True, sudo=gsudo).install()
     rtags_path = expanduser('~/.dotfiles/rtags')
@@ -479,7 +479,7 @@ def install_fonts():
     dependencies = ['wget', 'zip', 'fontconfig']
     if not available(binaries):
         if not args.force and not ask_yes_or_no("Could not find the required dependencies in $PATH. Could you let me install the package?", default=True):
-            echo("Aborted by user", ok=False)
+            echo("Aborted by user", error=True)
             raise FileNotFoundError("Package wget is not available.")
         if os_type() == DARWIN:
             Installer('brew', dependencies).install()
@@ -540,7 +540,7 @@ def _install_opam_emacs_package():
     if available('opam'):
         Installer('opam', ['tuareg', 'merlin', '--assume-depexts'], yes=True).install()
     else:
-        echo("Opam is not installed. Skip installing opam packages.", ok=False)
+        echo("Opam is not installed. Skip installing opam packages.", error=True)
 
 def install_emacs():
     """
@@ -596,7 +596,7 @@ def install(target):
 
 if not args.force and args.invoked_command is None:
     if not ask_yes_or_no("Default install option is all. Are you sure to continue?"):
-        echo('Aborted by user', ok=False)
+        echo('Aborted by user', error=True)
         sys.exit(1)
 
 if not args.skip_base:
@@ -612,8 +612,8 @@ install('emacs')
 install('rtags')
 
 if errors:
-    echo("⚠  Got % 2d errors during installations!\nPlease check the following messages." % len(errors), ok=False, box=True)
+    echo("⚠  Got % 2d errors during installations!\nPlease check the following messages." % len(errors), error=True, box=True)
     for err in errors:
-        echo(err, ok=False)
+        echo(err, error=True)
 else:
     echo("✔ Ready to go!", box=True)
