@@ -35,6 +35,7 @@ BREW_PACKAGES = ['m4', 'tmux', 'bzip2', 'gzip', 'the_silver_searcher', 'htop', '
                  'rbenv', 'ruby-build']
 OPAM_PACKAGES = ['ocamlformat', 'ocp-indent', 'dune', 'base', 'core', 'utop']
 CARGO_PACKAGES = ['dutree', 'loc', 'bb', 'bat', 'exa', 'eva', 'hyperfine']
+RTAGS_PACKAGE = ['cmake', 'libclang-dev', 'llvm-dev']
 
 
 ################################################################################
@@ -382,6 +383,10 @@ def _install_git_fuzzy():
 
 
 def install_rtags():
+    if os_type () == DARWIN:
+        echo("Not supported for Mac yet.", ok=False)
+        return
+    Installer('apt', RTAGS_PACKAGE, yes=True, sudo=gsudo).install()
     rtags_path = expanduser('~/.dotfiles/rtags')
     if exists(rtags_path):
         echo("You already have installed rtags!")
