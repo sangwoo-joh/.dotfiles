@@ -223,7 +223,6 @@ toplevel.add_argument('--skip-base', action='store_true', help='skip base packag
 toplevel.add_argument('--skip-fzf', action='store_true', help='skip installing fzf')
 toplevel.add_argument('--skip-z', action='store_true', help='skip installing z')
 toplevel.add_argument('--skip-git-fuzzy', action='store_true', help='skip installing git-fuzzy')
-toplevel.add_argument('--skip-rtags', action='store_true', help='skip installing rtags')
 
 subcommands = toplevel.add_subparsers(dest='invoked_command')
 
@@ -240,10 +239,10 @@ cmd_package = subcommands.add_parser('package', help='install packages')
 cmd_package.add_argument('--skip-fzf', action='store_true', help='skip installing fzf')
 cmd_package.add_argument('--skip-z', action='store_true', help='skip installing z')
 cmd_package.add_argument('--skip-git-fuzzy', action='store_true', help='skip installing git-fuzzy')
-cmd_package.add_argument('--skip-rtags', action='store_true', help='skip installing rtags')
 
 cmd_cargo = subcommands.add_parser('cargo', help='install cargo packages')
 cmd_fonts = subcommands.add_parser('fonts', help='install fonts')
+cmd_rtags = subcommands.add_parser('rtags', help='install rtags')
 cmd_test = subcommands.add_parser('test', help='test installation')
 
 
@@ -382,7 +381,7 @@ def _install_git_fuzzy():
         echo("⌛  Done!")
 
 
-def _install_rtags():
+def install_rtags():
     rtags_path = expanduser('~/.dotfiles/rtags')
     if exists(rtags_path):
         echo("You already have installed rtags!")
@@ -415,8 +414,6 @@ def install_package():
         _install_z()
     if not args.skip_git_fuzzy:
         _install_git_fuzzy()
-    if not args.skip_rtags:
-        _install_rtags()
 
     # FIXME: nvm install is not working
     # curl_install('https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.2/install.sh')
@@ -607,6 +604,7 @@ install('ocaml')
 install('cargo')
 install('fonts')
 install('emacs')
+install('rtags')
 
 if errors:
     echo("⚠  Got % 2d errors during installations!\nPlease check the following messages." % len(errors), ok=False, box=True)
