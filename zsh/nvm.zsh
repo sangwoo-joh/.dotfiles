@@ -7,7 +7,7 @@ fi
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-NODE_VERSION=19
+NODE_VERSION=22
 
 INSTALLED_VERSION=$(nvm ls "$NODE_VERSION")
 if grep -q "$NODE_VERSION" <<< "$INSTALLED_VERSION";
