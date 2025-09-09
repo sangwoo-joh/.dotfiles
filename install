@@ -25,14 +25,17 @@ APT_PACKAGES = ['m4', 'silversearcher-ag', 'tmux', 'tree', 'htop', 'openssh-serv
                 'graphviz', 'rsync', 'build-essential', 'tar', 'bzip2', 'gzip', 'zip',
                 'autoconf', 'make', 'etckeeper', 'moreutils', 'libmysqlclient-dev',
                 'bubblewrap', 'curl', 'wget', 'xclip',
-                'ripgrep', 'fd-find', 'iotop', 'atop', 'nvtop']
+                'ripgrep', 'fd-find', 'iotop', 'atop', 'nvtop',
+                'bsdextrautils', 'coreutils', 'gawk', 'grep', 'ncurses-bin',
+                'git-quick-stats']
 NATIVE_EMACS_DEPS = ['build-essential', 'autoconf', 'texinfo', 'zlib1g-dev',
                      'libgnutls28-dev', 'pkg-config', 'libncurses-dev', 'wget',
                      'libgccjit-*-dev', 'libwebkit2gtk-4.0-dev', 'libxpm-dev', 'libgif-dev', 'libjansson-dev']
 BREW_PACKAGES = ['m4', 'tmux', 'bzip2', 'gzip', 'the_silver_searcher', 'htop', 'tree',
                  'git', 'gpatch', 'fontconfig', 'wget',
                  'ripgrep', 'coreutils', 'fd', 'iotop', 'atop',
-                 'rbenv', 'ruby-build']
+                 'rbenv', 'ruby-build',
+                 'git-quick-stats']
 OPAM_PACKAGES = ['ocamlformat', 'ocp-indent', 'dune', 'base', 'core', 'utop']
 CARGO_PACKAGES = ['dutree', 'loc', 'bb', 'bat', 'exa', 'eva', 'hyperfine']
 RTAGS_PACKAGE = ['cmake', 'libclang-dev', 'llvm-dev']

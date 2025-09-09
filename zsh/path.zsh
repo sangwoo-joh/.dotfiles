@@ -8,3 +8,8 @@ export GEM_HOME="$HOME/.gems"
 export PATH="$HOME/.gems/bin":"$HOME/.local/bin":"$HOME/.emacs.d/bin":"$HOME/.rbenv/bin":$PATH
 
 [[ -d "$HOME/.git-fuzzy/bin" ]] && export PATH=$PATH:"$HOME/.git-fuzzy/bin"
+export PATH="$HOME/android-dev/flutter/bin:$PATH"
+
+if [[ $OSTYPE == 'darwin'* ]]; then
+    export PATH="$HOMEBREW_PREFIX/opt/coreutils/libexec/gnubin:$PATH"
+fi
