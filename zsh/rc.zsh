@@ -3,18 +3,13 @@ source "$HOME/.zsh/antigen.zsh"
 
 antigen use oh-my-zsh
 antigen bundle git
-antigen bundle docker
 antigen bundle command-not-found
 antigen bundle fzf
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle history
-antigen bundle pip
-antigen bundle pipenv
 antigen bundle zsh-history-substring-search.zsh
-antigen bundle docker/cli contrib/completion/zsh
-antigen bundle docker/compose contrib/completion/zsh
 # workaround for https://github.com/zsh-users/antigen/issues/675
 THEME=romkatv/powerlevel10k
 antigen list | grep $THEME; if [ $? -ne 0 ]; then antigen theme $THEME; fi
