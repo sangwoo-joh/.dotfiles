@@ -441,8 +441,6 @@ def install_ocaml():
         run("opam init")
         run("eval $(opam env)")
         run("opam update")
-        run("opam switch create kernel ocaml-base-compiler.4.13.1")
-        run("eval $(opam env --switch=kernel)")
         echo("⌛  Done!")
 
     Installer('opam', OPAM_PACKAGES, yes=True).install()
